@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'fiche_screen.dart';
+import 'dir_fiche/fiche_screen.dart';
 import 'home_screen.dart';
-import 'login_screen.dart';
+import 'authentification/login_screen.dart';
 
 final Map<String, WidgetBuilder> routes = {
   '/fiches': (BuildContext context) => const MyHomePage(),

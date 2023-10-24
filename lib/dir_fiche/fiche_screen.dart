@@ -1,4 +1,6 @@
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 class FicheScreen extends StatefulWidget {
@@ -40,16 +42,16 @@ class _FicheScreenWidgetState extends State<FicheScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Enter Form Details'),
+        title: const Text('Enter Form Details'),
       ),
       body: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
             TextFormField(
               controller: textController1,
               focusNode: textFieldFocusNode1,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Entity File',
                 hintText: 'Enter entity identification',
               ),
@@ -57,7 +59,7 @@ class _FicheScreenWidgetState extends State<FicheScreen> {
             TextFormField(
               controller: textController2,
               focusNode: textFieldFocusNode2,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'GPS Coordinate',
                 hintText: 'Enter GPS coordinate',
               ),
@@ -66,16 +68,16 @@ class _FicheScreenWidgetState extends State<FicheScreen> {
             ElevatedButton(
               onPressed: () {
                 // Gérez l'action du bouton ici
-                print('Button pressed ...');
+                log('Button pressed ...');
               },
-              child: Text('Add Photo'),
+              child: const Text('Add Photo'),
             ),
             ElevatedButton(
               onPressed: () {
                 // Gérez l'action du bouton ici
-                print('Button pressed ...');
+                log('Button pressed ...');
               },
-              child: Text('Submit'),
+              child: const Text('Submit'),
             ),
           ],
         ),
