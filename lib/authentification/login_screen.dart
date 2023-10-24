@@ -64,9 +64,9 @@ class _LoginScreenWidgetState extends State<LoginScreenWidget> {
                     ),
                     alignment: Alignment.center,
                     child: const Text(
-                      'Biodiversity App',
+                      'Biodivercity App',
                       style: TextStyle(
-                        //fontFamily: 'YourFont',
+                        fontFamily: 'Roboto',
                         color: Colors.black,
                         fontSize: 34,
                         fontWeight: FontWeight.bold,
@@ -74,6 +74,12 @@ class _LoginScreenWidgetState extends State<LoginScreenWidget> {
                     ),
                   ),
                 ),
+                Image.asset(
+                  './images/logo_ofb.png',
+                  height: 75,
+                  fit: BoxFit.contain,
+                ),
+                const SizedBox(height: 30.0),
                 Padding(
                   padding: const EdgeInsets.all(12.0),
                   child: Container(
@@ -82,19 +88,19 @@ class _LoginScreenWidgetState extends State<LoginScreenWidget> {
                       color: const Color(0xFFF5F5F5),
                       borderRadius: BorderRadius.circular(12),
                       border: Border.all(
-                        color: Colors.white,
+                        color: Colors.black,
                         width: 2,
                       ),
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(24.0),
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           const Text(
-                            'Login or Register',
+                            'Connexion',
                             style: TextStyle(
-                              fontFamily: 'YourFont',
+                              fontFamily: 'Roboto',
                               color: Colors.black,
                               fontSize: 34,
                               fontWeight: FontWeight.bold,
@@ -103,9 +109,9 @@ class _LoginScreenWidgetState extends State<LoginScreenWidget> {
                           const Padding(
                             padding: EdgeInsets.symmetric(vertical: 12.0),
                             child: Text(
-                              'Welcome to the Biodiversity App. Please login or register to continue.',
+                              'Bienvenu sur l\'application Biodivercity App. S\'il vous plaît, veuillez vous connectez ou créer un compte.',
                               style: TextStyle(
-                                fontFamily: 'YourFont',
+                                fontFamily: 'Roboto',
                                 color: Colors.black,
                                 fontSize: 12,
                                 fontWeight: FontWeight.w500,
@@ -118,7 +124,7 @@ class _LoginScreenWidgetState extends State<LoginScreenWidget> {
                             decoration: InputDecoration(
                               labelText: 'Email',
                               hintStyle: const TextStyle(
-                                fontFamily: 'YourFont',
+                                fontFamily: 'Roboto',
                                 color: Colors.black,
                                 fontSize: 16,
                               ),
@@ -138,7 +144,7 @@ class _LoginScreenWidgetState extends State<LoginScreenWidget> {
                               ),
                             ),
                             style: const TextStyle(
-                              fontFamily: 'YourFont',
+                              fontFamily: 'Roboto',
                               color: Colors.black,
                               fontSize: 16,
                             ),
@@ -152,7 +158,7 @@ class _LoginScreenWidgetState extends State<LoginScreenWidget> {
                               decoration: InputDecoration(
                                 labelText: 'Password',
                                 hintStyle: const TextStyle(
-                                  fontFamily: 'YourFont',
+                                  fontFamily: 'Roboto',
                                   color: Colors.black,
                                   fontSize: 16,
                                 ),
@@ -186,51 +192,59 @@ class _LoginScreenWidgetState extends State<LoginScreenWidget> {
                                 ),
                               ),
                               style: const TextStyle(
-                                fontFamily: 'YourFont',
+                                fontFamily: 'Roboto',
                                 color: Colors.black,
                                 fontSize: 16,
                               ),
                             ),
                           ),
+                          const SizedBox(height: 16.0),
                           ElevatedButton(
                             onPressed: () {
-                              log('Button pressed ...');
+                              log('Button pressed ...'); // /!\ MODIFICATION POUR CHANGER DE PAGE APRES LE LOGIN
                             },
-                            child: const Text(
-                              'Login',
-                              style: TextStyle(
-                                fontFamily: 'YourFont',
-                                color: Colors.white,
-                                fontSize: 14,
-                              ),
-                            ),
                             style: ElevatedButton.styleFrom(
-                              primary: Colors.green,
+                              minimumSize: const Size(150, 44),
+                              backgroundColor: Colors.green,
                               elevation: 3,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(40),
                               ),
                             ),
+                            child: const Text(
+                              'Login',
+                              style: TextStyle(
+                                fontFamily: 'Roboto',
+                                color: Colors.white,
+                                fontSize: 14,
+                              ),
+                            ),
                           ),
-                          const Row(
+                          const SizedBox(height: 20),
+                          Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text(
-                                "Don't have an account?",
+                              const Text(
+                                "Don't have an account ? ",
                                 style: TextStyle(
-                                  fontFamily: 'YourFont',
+                                  fontFamily: 'Roboto',
                                   color: Colors.black,
                                   fontSize: 14,
                                 ),
                               ),
-                              Text(
-                                'Register Here',
-                                style: TextStyle(
-                                  fontFamily: 'YourFont',
-                                  color: Colors.green,
-                                  fontSize: 14,
+                              InkWell(
+                                onTap: () {
+                                  log('Button register here pressed ...'); // /!\ MODIFICATION POUR CHANGER DE PAGE POUR CREER UN COMPTE
+                                },
+                                child: const Text(
+                                  ' Register Here',
+                                  style: TextStyle(
+                                    fontFamily: 'Roboto',
+                                    color: Colors.green,
+                                    fontSize: 14,
+                                  ),
                                 ),
-                              ),
+                              )
                             ],
                           ),
                         ],
