@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "405044080767",
+    "project_id": "mmm-flutter-project",
+    "storage_bucket": "mmm-flutter-project.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:405044080767:android:64d9685b9cc90981254f4a",
+        "android_client_info": {
+          "package_name": "com.example.mmm_project"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB1zBRBf2lytK_AJjVu_Pge2Ws_0MW1MVc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
