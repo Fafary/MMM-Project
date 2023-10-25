@@ -40,6 +40,13 @@ class _MyHomePageState extends State<MyHomePage> {
               },
               child: const Text('Aller vers ecran liste campagne'),
             ),
+            const SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).pushNamed('/create_campaign');
+              },
+              child: const Text('Aller vers ecran liste campagne'),
+            ),
           ],
         ),
       ),
