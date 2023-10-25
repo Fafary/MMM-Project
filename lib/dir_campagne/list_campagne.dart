@@ -121,7 +121,7 @@ class _ListCampaignScreenState extends State<ListCampaignScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       const Text(
-                        'Campagne',
+                        'Campagnes',
                         style: TextStyle(
                           fontFamily: 'Poppins',
                           color: Color(0xFF212121),
@@ -131,7 +131,7 @@ class _ListCampaignScreenState extends State<ListCampaignScreen> {
                       ),
                       ElevatedButton(
                         onPressed: () {
-                          log('Button pressed ...'); // APPEL A CHANGER POUR CREER UNE CAMPAGNE
+                          Navigator.of(context).pushNamed('/create_campaign');
                         },
                         style: ElevatedButton.styleFrom(
                           shape: const CircleBorder(),
