@@ -4,28 +4,35 @@ import 'package:flutter/material.dart';
 
 import 'campaignCard.dart';
 
-class CampaignScreen extends StatefulWidget {
-  const CampaignScreen({Key? key}) : super(key: key);
+class ListCampaignScreen extends StatefulWidget {
+  const ListCampaignScreen({Key? key}) : super(key: key);
 
   @override
-  _CampaignScreenState createState() => _CampaignScreenState();
+  _ListCampaignScreenState createState() => _ListCampaignScreenState();
 }
 
-class _CampaignScreenState extends State<CampaignScreen> {
+class _ListCampaignScreenState extends State<ListCampaignScreen> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final TextEditingController textController = TextEditingController();
   final FocusNode textFieldFocusNode = FocusNode();
 
   @override
   void dispose() {
+    textController.dispose();
     super.dispose();
   }
+
+  // Efface le texte du champ de texte.
+  void clearText() {
+    textController.clear();
+  }
+
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        if (textFieldFocusNode.canRequestFocus) {
+        if (textFieldFocusNode.hasPrimaryFocus) {
           FocusScope.of(context).requestFocus(textFieldFocusNode);
         } else {
           FocusScope.of(context).unfocus();
@@ -77,7 +84,7 @@ class _CampaignScreenState extends State<CampaignScreen> {
                                   focusNode: textFieldFocusNode,
                                   obscureText: false,
                                   decoration: const InputDecoration(
-                                    labelText: 'Search campaigns...',
+                                    labelText: 'Chercher une campagne...',
                                     hintStyle: TextStyle(
                                       fontFamily: 'Poppins',
                                       color: Color(0xFF212121),
@@ -98,22 +105,46 @@ class _CampaignScreenState extends State<CampaignScreen> {
                                 ),
                               ),
                             ),
+                            IconButton(
+                              icon: Icon(Icons.clear),
+                              onPressed: clearText,
+                            ),
                           ],
                         ),
                       ),
                     ),
                   ),
                 ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                  child: Text(
-                    'Campaigns',
-                    style: TextStyle(
-                      fontFamily: 'Poppins',
-                      color: Color(0xFF212121),
-                      fontSize: 12,
-                      fontWeight: FontWeight.w500,
-                    ),
+                Padding( // Affichage du titre campaign et du bouton create campaign
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        'Campagne',
+                        style: TextStyle(
+                          fontFamily: 'Poppins',
+                          color: Color(0xFF212121),
+                          fontSize: 30,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          print('Button pressed ...'); // APPEL A CHANGER POUR CREER UNE CAMPAGNE
+                        },
+                        style: ElevatedButton.styleFrom(
+                          shape: const CircleBorder(),
+                          backgroundColor: Colors.green,
+                          padding: const EdgeInsets.all(10),
+                        ),
+                        child: const Icon(
+                          Icons.add, // Icône de croix
+                          color: Colors.white, // Couleur de l'icône
+                          size: 24,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
                 const Padding(
@@ -125,11 +156,11 @@ class _CampaignScreenState extends State<CampaignScreen> {
                       // Utilisation du widget CampaignCard pour les campagnes
                       CampaignCard(
                         title: 'Save the Bees',
-                        description: 'Help protect bees and their habitats',
+                        description: 'Aide a proteger les abeilles et leurs habitats',
                       ),
                       CampaignCard(
                         title: 'Plant a Tree',
-                        description: 'Contribute to reforestation efforts',
+                        description: 'Contribue a la reforestation',
                       ),
                     ],
                   ),

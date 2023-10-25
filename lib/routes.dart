@@ -9,5 +9,5 @@ final Map<String, WidgetBuilder> routes = {
   '/': (BuildContext context) => const MyHomePage(),
   '/creation_fiche': (BuildContext context) => const FicheScreen(),
   '/login': (BuildContext context) => const LoginScreen(),
-  '/list_campaign': (BuildContext context) => const CampaignScreen(),
+  '/list_campaign': (BuildContext context) => const ListCampaignScreen(),
 };
