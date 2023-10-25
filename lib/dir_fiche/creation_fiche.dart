@@ -1,4 +1,3 @@
-
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
@@ -14,12 +13,9 @@ class _FicheScreenWidgetState extends State<FicheScreen> {
 
   TextEditingController textController1 = TextEditingController();
   TextEditingController textController2 = TextEditingController();
-// Ajoutez autant de contrôleurs de texte que nécessaire
 
   FocusNode textFieldFocusNode1 = FocusNode();
   FocusNode textFieldFocusNode2 = FocusNode();
-// Ajoutez autant de nœuds de focus que nécessaire
-
 
   @override
   void initState() {
@@ -30,19 +26,18 @@ class _FicheScreenWidgetState extends State<FicheScreen> {
   void dispose() {
     textController1.dispose();
     textController2.dispose();
-    // Disposez des autres contrôleurs de texte
+
     textFieldFocusNode1.dispose();
     textFieldFocusNode2.dispose();
-    // Disposez des autres nœuds de focus
+
     super.dispose();
   }
-
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Enter Form Details'),
+        title: const Text("Création d'une fiche"),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

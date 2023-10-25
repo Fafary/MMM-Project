@@ -1,8 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
-import 'login_screen.dart';
+import 'package:mmm_project/dir_campagne/list_campagne.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
@@ -63,7 +62,7 @@ class SignupScreenState extends State<SignupScreen> {
                       password: password,
                     ).then((userCredential) {
                       // Store the user in the appropriate collection based on their role.
-                      FirebaseFirestore.instance.collection('User').doc(nom + prenom).set({
+                      FirebaseFirestore.instance.collection('User').doc('$nom $prenom').set({
                         'Nom': nom,
                         'Prénom': prenom,
                         'e-mail': email,
@@ -71,7 +70,7 @@ class SignupScreenState extends State<SignupScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const LoginScreen(),
+                          builder: (context) => const ListCampaignScreen(),
                         ),
                       );
                     }).catchError((e) {

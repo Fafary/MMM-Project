@@ -106,7 +106,7 @@ class _ListCampaignScreenState extends State<ListCampaignScreen> {
                               ),
                             ),
                             IconButton(
-                              icon: Icon(Icons.clear),
+                              icon: const Icon(Icons.clear),
                               onPressed: clearText,
                             ),
                           ],
@@ -131,7 +131,7 @@ class _ListCampaignScreenState extends State<ListCampaignScreen> {
                       ),
                       ElevatedButton(
                         onPressed: () {
-                          print('Button pressed ...'); // APPEL A CHANGER POUR CREER UNE CAMPAGNE
+                          log('Button pressed ...'); // APPEL A CHANGER POUR CREER UNE CAMPAGNE
                         },
                         style: ElevatedButton.styleFrom(
                           shape: const CircleBorder(),
