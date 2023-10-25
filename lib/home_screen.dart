@@ -24,7 +24,7 @@ class _MyHomePageState extends State<MyHomePage> {
               onPressed: () {
                 Navigator.of(context).pushNamed('/creation_fiche');
               },
-              child: const Text('Aller vers ecran creation d une fiche'),
+              child: const Text("Aller vers ecran creation d'une fiche"),
             ),
             const SizedBox(height: 16),
             ElevatedButton(
@@ -45,7 +45,7 @@ class _MyHomePageState extends State<MyHomePage> {
               onPressed: () {
                 Navigator.of(context).pushNamed('/create_campaign');
               },
-              child: const Text('Aller vers ecran liste campagne'),
+              child: const Text("Aller vers ecran création d'une campagne"),
             ),
           ],
         ),

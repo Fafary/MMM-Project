@@ -69,19 +69,19 @@
     },
     {
       "name": "firebase_auth",
-      "rootUri": "file:///home/tebor/.pub-cache/hosted/pub.dev/firebase_auth-4.11.1",
+      "rootUri": "file:///home/tebor/.pub-cache/hosted/pub.dev/firebase_auth-4.12.0",
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
     {
       "name": "firebase_auth_platform_interface",
-      "rootUri": "file:///home/tebor/.pub-cache/hosted/pub.dev/firebase_auth_platform_interface-7.0.1",
+      "rootUri": "file:///home/tebor/.pub-cache/hosted/pub.dev/firebase_auth_platform_interface-7.0.2",
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
     {
       "name": "firebase_auth_web",
-      "rootUri": "file:///home/tebor/.pub-cache/hosted/pub.dev/firebase_auth_web-5.8.4",
+      "rootUri": "file:///home/tebor/.pub-cache/hosted/pub.dev/firebase_auth_web-5.8.5",
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
@@ -128,10 +128,22 @@
       "languageVersion": "3.0"
     },
     {
+      "name": "flutter_form_builder",
+      "rootUri": "file:///home/tebor/.pub-cache/hosted/pub.dev/flutter_form_builder-9.1.1",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
       "name": "flutter_lints",
       "rootUri": "file:///home/tebor/.pub-cache/hosted/pub.dev/flutter_lints-2.0.3",
       "packageUri": "lib/",
       "languageVersion": "2.19"
+    },
+    {
+      "name": "flutter_localizations",
+      "rootUri": "file:///home/tebor/snap/flutter/common/flutter/packages/flutter_localizations",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
     },
     {
       "name": "flutter_test",
@@ -146,8 +158,20 @@
       "languageVersion": "3.0"
     },
     {
+      "name": "form_builder_validators",
+      "rootUri": "file:///home/tebor/.pub-cache/hosted/pub.dev/form_builder_validators-9.1.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
       "name": "http_parser",
       "rootUri": "file:///home/tebor/.pub-cache/hosted/pub.dev/http_parser-4.0.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "intl",
+      "rootUri": "file:///home/tebor/.pub-cache/hosted/pub.dev/intl-0.18.1",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -260,7 +284,7 @@
       "languageVersion": "3.1"
     }
   ],
-  "generated": "2023-10-25T12:17:52.527823Z",
+  "generated": "2023-10-25T13:03:45.440103Z",
   "generator": "pub",
   "generatorVersion": "3.1.4"
 }

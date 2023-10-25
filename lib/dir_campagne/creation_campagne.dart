@@ -1,5 +1,6 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 
@@ -319,7 +320,7 @@ class _CampagneCreationState extends State<CampagneCreation> {
                     child: ElevatedButton(
                       onPressed: () {
                         Navigator.of(context).pushNamed('/list_campaign');
-                        print('Button create campaign pressed');
+                        log('Button create campaign pressed');
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.green,
@@ -351,4 +352,5 @@ class _CampagneCreationState extends State<CampagneCreation> {
       ),
     );
   }
+
 }

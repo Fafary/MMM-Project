@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 
 import 'campaignCard.dart';
@@ -163,31 +161,6 @@ class _ListCampaignScreenState extends State<ListCampaignScreen> {
                         description: 'Contribue a la reforestation',
                       ),
                     ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: ElevatedButton(
-                    onPressed: () {
-                      log('Button pressed ...');
-                    },
-                    style: ElevatedButton.styleFrom(
-                      minimumSize: const Size(double.infinity, 60),
-                      backgroundColor: Colors.green,
-                      elevation: 3,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                    ),
-                    child: const Text(
-                      'Create Campaign',
-                      style: TextStyle(
-                        fontFamily: 'Outfit',
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
                   ),
                 ),
               ],
