@@ -2,14 +2,14 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 
-class LoginScreenWidget extends StatefulWidget {
-  const LoginScreenWidget({Key? key}) : super(key: key);
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({Key? key}) : super(key: key);
 
   @override
-  _LoginScreenWidgetState createState() => _LoginScreenWidgetState();
+  _LoginScreenState createState() => _LoginScreenState();
 }
 
-class _LoginScreenWidgetState extends State<LoginScreenWidget> {
+class _LoginScreenState extends State<LoginScreen> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   late TextEditingController emailController;
   late TextEditingController passwordController;
