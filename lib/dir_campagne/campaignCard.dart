@@ -4,7 +4,7 @@ class CampaignCard extends StatefulWidget {
   final String title;
   final String description;
 
-  CampaignCard({required this.title, required this.description});
+  const CampaignCard({super.key, required this.title, required this.description});
 
   @override
   _CampaignCardState createState() => _CampaignCardState();

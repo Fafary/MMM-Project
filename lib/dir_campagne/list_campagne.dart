@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 import 'campaignCard.dart';
@@ -51,14 +53,14 @@ class _CampaignScreenState extends State<CampaignScreen> {
                       width: double.infinity,
                       height: 60,
                       decoration: BoxDecoration(
-                        color: Color(0xFFF5F5F5),
+                        color: const Color(0xFFF5F5F5),
                         borderRadius: BorderRadius.circular(40),
                         border: Border.all(
-                          color: Color(0xFFFF5722),
+                          color: const Color(0xFFFF5722),
                         ),
                       ),
                       child: Padding(
-                        padding: EdgeInsets.fromLTRB(16, 0, 12, 0),
+                        padding: const EdgeInsets.fromLTRB(16, 0, 12, 0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           children: [
@@ -69,7 +71,7 @@ class _CampaignScreenState extends State<CampaignScreen> {
                             ),
                             Expanded(
                               child: Padding(
-                                padding: EdgeInsets.fromLTRB(4, 0, 0, 0),
+                                padding: const EdgeInsets.fromLTRB(4, 0, 0, 0),
                                 child: TextFormField(
                                   controller: textController,
                                   focusNode: textFieldFocusNode,
@@ -114,7 +116,7 @@ class _CampaignScreenState extends State<CampaignScreen> {
                     ),
                   ),
                 ),
-                Padding(
+                const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
@@ -136,11 +138,11 @@ class _CampaignScreenState extends State<CampaignScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: ElevatedButton(
                     onPressed: () {
-                      print('Button pressed ...');
+                      log('Button pressed ...');
                     },
                     style: ElevatedButton.styleFrom(
-                      minimumSize: Size(double.infinity, 60),
-                      primary: Colors.green,
+                      minimumSize: const Size(double.infinity, 60),
+                      backgroundColor: Colors.green,
                       elevation: 3,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),

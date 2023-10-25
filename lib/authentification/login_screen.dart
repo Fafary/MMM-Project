@@ -1,6 +1,6 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
+import 'package:mmm_project/authentification/signup_screen.dart';
+import 'package:mmm_project/dir_campagne/list_campagne.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -201,8 +201,12 @@ class _LoginScreenState extends State<LoginScreen> {
                           const SizedBox(height: 16.0),
                           ElevatedButton(
                             onPressed: () {
-                              log('Button pressed ...'); // /!\ MODIFICATION POUR CHANGER DE PAGE APRES LE LOGIN
-                            },
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const CampaignScreen(),
+                                ),
+                              );                            },
                             style: ElevatedButton.styleFrom(
                               minimumSize: const Size(150, 44),
                               backgroundColor: Colors.green,
@@ -234,7 +238,12 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                               InkWell(
                                 onTap: () {
-                                  log('Button register here pressed ...'); // /!\ MODIFICATION POUR CHANGER DE PAGE POUR CREER UN COMPTE
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => const SignupScreen(),
+                                    ),
+                                  );
                                 },
                                 child: const Text(
                                   ' Register Here',
