@@ -46,11 +46,30 @@ class _CampagneCreationState extends State<CampagneCreation> {
           : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
+        appBar: AppBar(
+          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+          title: const Text('Créer une campagne'),
+          actions: [
+            Padding(
+              padding: const EdgeInsets.only(right: 16.0),
+              child: IconButton(
+                icon: const Icon(
+                  Icons.close_rounded,
+                  color: Colors.black,
+                  size: 30,
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ),
+          ],
+        ),
         backgroundColor: Colors.white,
         body: SafeArea(
           top: true,
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
+            padding: const EdgeInsets.fromLTRB(16, 32, 16, 0),
             child: Column(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -58,34 +77,6 @@ class _CampagneCreationState extends State<CampagneCreation> {
                   Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 16),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const Text(
-                              'Create Campaign',
-                              style: TextStyle(
-                                fontFamily: 'Roboto',
-                                color: Colors.black,
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            IconButton(
-                              icon: const Icon(
-                                Icons.close_rounded,
-                                color: Colors.black,
-                                size: 30,
-                              ),
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                            ),
-                          ],
-                        ),
-                      ),
                       FormBuilderTextField(
                         name: 'title',
                         validator:FormBuilderValidators.required(errorText: 'Ce champ est obligatoire'),
@@ -93,7 +84,7 @@ class _CampagneCreationState extends State<CampagneCreation> {
                         focusNode: textFieldFocusNode1,
                         obscureText: false,
                         decoration: InputDecoration(
-                          labelText: 'Title',
+                          labelText: 'Titre',
                           hintText: 'Enter campaign title',
                           hintStyle: const TextStyle(
                             fontFamily: 'Roboto',
@@ -132,7 +123,7 @@ class _CampagneCreationState extends State<CampagneCreation> {
                           focusNode: textFieldFocusNode2,
                           obscureText: false,
                           decoration: InputDecoration(
-                            hintText: 'Enter description here...',
+                            hintText: 'Entrer une description...',
                             hintStyle: const TextStyle(
                               fontFamily: 'Roboto',
                               color: Colors.grey,
@@ -342,7 +333,7 @@ class _CampagneCreationState extends State<CampagneCreation> {
                         height: 55,
                         alignment: Alignment.center,
                         child: const Text(
-                          'Create Campaign',
+                          'Créer une campagne',
                           style: TextStyle(
                             fontFamily: 'Outfit',
                             color: Colors.white,
