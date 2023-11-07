@@ -6,10 +6,10 @@ class FicheScreen extends StatefulWidget {
   const FicheScreen({Key? key}) : super(key: key);
 
   @override
-  _FicheScreenWidgetState createState() => _FicheScreenWidgetState();
+  FicheScreenWidgetState createState() => FicheScreenWidgetState();
 }
 
-class _FicheScreenWidgetState extends State<FicheScreen> {
+class FicheScreenWidgetState extends State<FicheScreen> {
 
   TextEditingController textController1 = TextEditingController();
   TextEditingController textController2 = TextEditingController();

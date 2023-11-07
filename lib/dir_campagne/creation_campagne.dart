@@ -8,10 +8,10 @@ class CampagneCreation extends StatefulWidget {
   const CampagneCreation({Key? key}) : super(key: key);
 
   @override
-  _CampagneCreationState createState() => _CampagneCreationState();
+  CampagneCreationState createState() => CampagneCreationState();
 }
 
-class _CampagneCreationState extends State<CampagneCreation> {
+class CampagneCreationState extends State<CampagneCreation> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final textController1 = TextEditingController();
   final textFieldFocusNode1 = FocusNode();

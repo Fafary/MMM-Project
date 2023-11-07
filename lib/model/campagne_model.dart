@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class CampaignCard extends StatefulWidget {
   final String title;
   final String description;
@@ -7,10 +9,10 @@ class CampaignCard extends StatefulWidget {
   const CampaignCard({super.key, required this.title, required this.description});
 
   @override
-  _CampaignCardState createState() => _CampaignCardState();
+  CampaignCardState createState() => CampaignCardState();
 }
 
-class _CampaignCardState extends State<CampaignCard> {
+class CampaignCardState extends State<CampaignCard> {
   bool isHovered = false;
 
   @override
@@ -116,3 +118,49 @@ class _CampaignCardState extends State<CampaignCard> {
     );
   }
 }
+
+class Campagne {
+  String? titre;
+  DateTime? dateDebut;
+  DateTime? dateFin;
+  String? description;
+  String? territoire;
+  String? groupes;
+
+  Campagne({
+    this.titre,
+    this.dateDebut,
+    this.dateFin,
+    this.description,
+    this.territoire,
+    this.groupes,
+  });
+
+  factory Campagne.fromFirestore(
+      DocumentSnapshot<Map<String, dynamic>> snapshot,
+      SnapshotOptions? options,){
+    final data = snapshot.data();
+    return Campagne(
+      titre: data?['titre'],
+      dateDebut: data?['dateDebut'],
+      dateFin: data?['dateFin'],
+      description: data?['description'],
+      territoire: data?['territoire'],
+      groupes: data?['groupes'],
+    );
+  }
+
+  Map<String, dynamic> toFirestore() {
+    return {
+      if (titre != null) "titre": titre,
+      if (dateDebut != null) "dateDebut": dateDebut,
+      if (dateFin != null) "dateFin": dateFin,
+      if (description != null) "description": description,
+      if (territoire != null) "territoire": territoire,
+      if (groupes != null) "groupes": groupes,
+    };
+  }
+
+}
+
+

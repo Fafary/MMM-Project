@@ -1,5 +1,6 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 class CampaignScreen extends StatelessWidget {
   const CampaignScreen({Key? key}) : super(key: key);
@@ -26,7 +27,7 @@ class CampaignScreen extends StatelessWidget {
             ),
             color: Colors.black,
             onPressed: () {
-              print('IconButton pressed retour');
+              log('IconButton pressed retour');
               Navigator.of(context).pushNamed('/list_campaign');
             },
           ),
@@ -37,7 +38,7 @@ class CampaignScreen extends StatelessWidget {
               color: Colors.black,
             ),
           ),
-          actions: [],
+          actions: const [],
           centerTitle: false,
           elevation: 0,
         ),
@@ -59,7 +60,7 @@ class CampaignScreen extends StatelessWidget {
                         color: Colors.green,
                         borderRadius: BorderRadius.circular(40),
                       ),
-                      child: Align(
+                      child: const Align(
                         alignment: Alignment.center,
                         child: Padding(
                           padding: EdgeInsets.fromLTRB(16, 0, 0, 0),
@@ -77,8 +78,8 @@ class CampaignScreen extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
+                  const Padding(
+                    padding: EdgeInsets.fromLTRB(16, 0, 16, 0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -87,7 +88,7 @@ class CampaignScreen extends StatelessWidget {
                           mainAxisSize: MainAxisSize.max,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
+                            Text(
                               'Date de début',
                               style: TextStyle(
                                 fontFamily: 'Roboto',
@@ -183,8 +184,8 @@ class CampaignScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(16, 4, 0, 0),
+                  const Padding(
+                    padding: EdgeInsets.fromLTRB(16, 4, 0, 0),
                     child: Text(
                       'Champ de texte',
                       style: TextStyle(
@@ -193,8 +194,8 @@ class CampaignScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(16, 12, 0, 0),
+                  const Padding(
+                    padding: EdgeInsets.fromLTRB(16, 12, 0, 0),
                     child: Text(
                       'Fiches',
                       style: TextStyle(
@@ -275,13 +276,13 @@ Widget buildCustomListItem(String title) {
             children: [
               Text(
                 title,
-                style: TextStyle(
+                style: const TextStyle(
                   fontFamily: 'Roboto',
                   fontSize: 16,
                   color: Colors.black,
                 ),
               ),
-              Icon(
+              const Icon(
                 Icons.file_copy_rounded,
                 color: Colors.black,
                 size: 36,

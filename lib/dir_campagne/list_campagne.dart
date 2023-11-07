@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
-import 'campaignCard.dart';
+import '../model/campagne_model.dart';
 
 class ListCampaignScreen extends StatefulWidget {
   const ListCampaignScreen({Key? key}) : super(key: key);
 
   @override
-  _ListCampaignScreenState createState() => _ListCampaignScreenState();
+  ListCampaignScreenState createState() => ListCampaignScreenState();
 }
 
-class _ListCampaignScreenState extends State<ListCampaignScreen> {
+class ListCampaignScreenState extends State<ListCampaignScreen> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final TextEditingController textController = TextEditingController();
   final FocusNode textFieldFocusNode = FocusNode();
