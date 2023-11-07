@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'dir_campagne/campagne_screen.dart';
 import 'dir_campagne/creation_campagne.dart';
 import 'dir_campagne/list_campagne.dart';
 import 'dir_fiche/creation_fiche.dart';
@@ -12,4 +13,5 @@ final Map<String, WidgetBuilder> routes = {
   '/login': (BuildContext context) => const LoginScreen(),
   '/list_campaign': (BuildContext context) => const ListCampaignScreen(),
   '/create_campaign': (BuildContext context) => const CampagneCreation(),
+  '/campaign_screen': (BuildContext context) => const CampaignScreen(),
 };
