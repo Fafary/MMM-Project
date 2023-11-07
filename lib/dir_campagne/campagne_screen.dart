@@ -219,26 +219,23 @@ class CampaignScreen extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 10),
-                  const Padding(
-                    padding: EdgeInsets.fromLTRB(16, 12, 0, 0),
-                    child: Text(
-                      'Commentaires',
-                      style: TextStyle(
-                        fontFamily: 'Roboto',
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
+                  Align(
+                    alignment: Alignment.center,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        // Navigator.of(context).pushNamed('/create_fiche');
+                      },
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.green,
+                        elevation: 5,
                       ),
-                    ),
-                  ),
-                  const SizedBox(height: 5),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(16, 4, 0, 0),
-                    // EXEMPLES A CHANGER PAR LES VALEURS DE LA BASE DE DONNEE
-                    child: Text(
-                      'Salut cette campagne est géniale',
-                      style: TextStyle(
-                        fontFamily: 'Roboto',
-                        color: Colors.black,
+                      child: const Text(
+                        'Créer une fiche',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontFamily: 'Roboto',
+                          color: Colors.white, // Couleur du texte
+                        ),
                       ),
                     ),
                   ),
