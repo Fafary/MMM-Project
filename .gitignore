@@ -1,3 +1,10 @@
 .flutter-plugins
 .flutter-plugins-dependencies
 pubspec.lock
+
+android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java
+
+ios/Runner/GeneratedPluginRegistrant.m
+
+.dart_tool/package_config.json
+.dart_tool/package_config_subset
