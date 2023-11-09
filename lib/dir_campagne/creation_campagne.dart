@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 
+import '../model/campagne_model.dart';
+import '../model/database.dart';
+
 class CampagneCreation extends StatefulWidget {
   const CampagneCreation({Key? key}) : super(key: key);
 
@@ -13,25 +16,27 @@ class CampagneCreation extends StatefulWidget {
 
 class CampagneCreationState extends State<CampagneCreation> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  final textController1 = TextEditingController();
+  final titleController = TextEditingController();
   final textFieldFocusNode1 = FocusNode();
-  final textController2 = TextEditingController();
+  final descriptionController = TextEditingController();
   final textFieldFocusNode2 = FocusNode();
-  final textController3 = TextEditingController();
+  final territoireController = TextEditingController();
   final textFieldFocusNode3 = FocusNode();
-  final textController4 = TextEditingController();
+  final groupesController = TextEditingController();
   final textFieldFocusNode4 = FocusNode();
   final unfocusNode = FocusNode();
 
+  final DatabaseServices databaseServices = DatabaseServices();
+
   @override
   void dispose() {
-    textController1.dispose();
+    titleController.dispose();
     textFieldFocusNode1.dispose();
-    textController2.dispose();
+    descriptionController.dispose();
     textFieldFocusNode2.dispose();
-    textController3.dispose();
+    territoireController.dispose();
     textFieldFocusNode3.dispose();
-    textController4.dispose();
+    groupesController.dispose();
     textFieldFocusNode4.dispose();
     unfocusNode.dispose();
 
@@ -81,7 +86,7 @@ class CampagneCreationState extends State<CampagneCreation> {
                       FormBuilderTextField(
                         name: 'title',
                         validator:FormBuilderValidators.required(errorText: 'Ce champ est obligatoire'),
-                        controller: textController1,
+                        controller: titleController,
                         focusNode: textFieldFocusNode1,
                         obscureText: false,
                         decoration: InputDecoration(
@@ -120,7 +125,7 @@ class CampagneCreationState extends State<CampagneCreation> {
                         child: FormBuilderTextField(
                           name: 'description',
                           validator: FormBuilderValidators.required(errorText: 'Ce champ est obligatoire'),
-                          controller: textController2,
+                          controller: descriptionController,
                           focusNode: textFieldFocusNode2,
                           obscureText: false,
                           decoration: InputDecoration(
@@ -239,7 +244,7 @@ class CampagneCreationState extends State<CampagneCreation> {
                         child: FormBuilderTextField(
                           name: 'nameTerritory',
                           validator: FormBuilderValidators.required(errorText: 'Ce champ est obligatoire'),
-                          controller: textController3,
+                          controller: territoireController,
                           focusNode: textFieldFocusNode3,
                           obscureText: false,
                           decoration: InputDecoration(
@@ -278,7 +283,7 @@ class CampagneCreationState extends State<CampagneCreation> {
                         padding: const EdgeInsets.fromLTRB(0, 16, 0, 0),
                         child: FormBuilderTextField(
                           name: 'groupName',
-                          controller: textController4,
+                          controller: groupesController,
                           focusNode: textFieldFocusNode4,
                           validator: FormBuilderValidators.required(errorText: 'Ce champ est obligatoire'),
                           decoration: InputDecoration(
@@ -318,9 +323,34 @@ class CampagneCreationState extends State<CampagneCreation> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(0, 24, 0, 16),
                     child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.of(context).pushNamed('/list_campaign');
+                      onPressed: () async {
+                        final currentContext = context;
+
+                        final formData = {
+                          'titre': titleController.text,
+                          //'dateDebut': dateDebutController.text,
+                          //'dateFin':dateFinController.text,
+                          'description':descriptionController.text,
+                          'territoire':territoireController.text,
+                          'groupes':groupesController.text,
+                        };
+
+                        // Créer un objet Chantier à partir des valeurs du formulaire
+                        final chantier = Campagne(
+                          titre: formData['titre'],
+                          //dateDebut: formData['dateDebut'],
+                          //dateFin: formData['dateFin'],
+                          description: formData['description'],
+                          territoire: formData['territoire'],
+                          groupes: formData['groupes'],
+                        );
+
+                        // Envoyer ou utiliser l'objet chantier en l'envoyant à Firebase
+                        await databaseServices.updateCampagneData(chantier);
+
                         log('Button create campaign pressed');
+                        // ignore: use_build_context_synchronously
+                        Navigator.pushNamed(currentContext, '/list_campaign');
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.green,

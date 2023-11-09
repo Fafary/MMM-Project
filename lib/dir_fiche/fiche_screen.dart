@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -6,28 +8,28 @@ class FicheWidget extends StatefulWidget {
   const FicheWidget({Key? key}) : super(key: key);
 
   @override
-  _FicheWidgetState createState() => _FicheWidgetState();
+  FicheWidgetState createState() => FicheWidgetState();
 }
 
-class _FicheWidgetState extends State<FicheWidget> {
-  late TextEditingController _textController;
-  late FocusNode _textFieldFocusNode;
-  CarouselController? _carouselController;
-  int _carouselCurrentIndex = 0;
+class FicheWidgetState extends State<FicheWidget> {
+  late TextEditingController textController;
+  late FocusNode textFieldFocusNode;
+  CarouselController? carouselController;
+  int carouselCurrentIndex = 0;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _textController = TextEditingController();
-    _textFieldFocusNode = FocusNode();
+    textController = TextEditingController();
+    textFieldFocusNode = FocusNode();
   }
 
   @override
   void dispose() {
-    _textController.dispose();
-    _textFieldFocusNode.dispose();
+    textController.dispose();
+    textFieldFocusNode.dispose();
 
     super.dispose();
   }
@@ -45,8 +47,8 @@ class _FicheWidgetState extends State<FicheWidget> {
 
     return GestureDetector(
       onTap: () {
-        if (_textFieldFocusNode.hasFocus) {
-          FocusScope.of(context).requestFocus(_textFieldFocusNode);
+        if (textFieldFocusNode.hasFocus) {
+          FocusScope.of(context).requestFocus(textFieldFocusNode);
         } else {
           FocusScope.of(context).unfocus();
         }
@@ -57,28 +59,28 @@ class _FicheWidgetState extends State<FicheWidget> {
         body: SafeArea(
           top: true,
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
                 Padding(
-                  padding: EdgeInsets.only(right: 16),
+                  padding: const EdgeInsets.only(right: 16),
                   child: Container(
                     decoration: BoxDecoration(
                       color: Theme.of(context).cardColor,
                     ),
                     child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 16),
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
+                          const Text(
                             'Fiche',
                           ),
                           Text(
                             'Date: 7/11/2023',
-                            style: Theme.of(context).textTheme.bodyText1,
+                            style: Theme.of(context).textTheme.bodyLarge,
                           ),
                         ],
                       ),
@@ -86,51 +88,51 @@ class _FicheWidgetState extends State<FicheWidget> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(right: 16),
+                  padding: const EdgeInsets.only(right: 16),
                   child: Container(
                     decoration: BoxDecoration(
                       color: Theme.of(context).cardColor,
                     ),
                     child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                       child: TextFormField(
-                        controller: _textController,
-                        focusNode: _textFieldFocusNode,
+                        controller: textController,
+                        focusNode: textFieldFocusNode,
                         obscureText: false,
                         decoration: InputDecoration(
                           labelText: 'Observation',
                           hintText: 'Add an observation here...',
-                          hintStyle: Theme.of(context).textTheme.bodyText2,
+                          hintStyle: Theme.of(context).textTheme.bodyMedium,
                           enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               color: Color(0xFF25C419),
                               width: 2,
                             ),
                             borderRadius: BorderRadius.circular(10),
                           ),
                           focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               color: Color(0x00000000),
                               width: 2,
                             ),
                             borderRadius: BorderRadius.circular(10),
                           ),
                           errorBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               color: Color(0x00000000),
                               width: 2,
                             ),
                             borderRadius: BorderRadius.circular(10),
                           ),
                           focusedErrorBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               color: Color(0x00000000),
                               width: 2,
                             ),
                             borderRadius: BorderRadius.circular(10),
                           ),
                         ),
-                        style: Theme.of(context).textTheme.bodyText2,
+                        style: Theme.of(context).textTheme.bodyMedium,
                         minLines: 5,
                         maxLines: null, // Vous pouvez définir maxLines sur null pour permettre un nombre illimité de lignes.
                         // Add your validation logic here
@@ -139,21 +141,21 @@ class _FicheWidgetState extends State<FicheWidget> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(right: 16),
+                  padding: const EdgeInsets.only(right: 16),
                   child: Container(
                     decoration: BoxDecoration(
                       color: Theme.of(context).cardColor,
                     ),
                     child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                       child: Text(
                         'Name: Tree\n\nLocation:\nLatitude 12.12345°W\nLongitude 12.12347°N\n',
-                        style: Theme.of(context).textTheme.bodyText2,
+                        style: Theme.of(context).textTheme.bodyMedium,
                       ),
                     ),
                   ),
                 ),
-                Container(
+                SizedBox(
                   width: double.infinity,
                   height: 180,
                   child: CarouselSlider(
@@ -195,7 +197,7 @@ class _FicheWidgetState extends State<FicheWidget> {
                         ),
                       ),
                     ],
-                    carouselController: _carouselController,
+                    carouselController: carouselController,
                     options: CarouselOptions(
                       initialPage: 1,
                       viewportFraction: 0.5,
@@ -206,26 +208,26 @@ class _FicheWidgetState extends State<FicheWidget> {
                       scrollDirection: Axis.horizontal,
                       autoPlay: false,
                       onPageChanged: (index, _) {
-                        _carouselCurrentIndex = index;
+                        carouselCurrentIndex = index;
                       },
                     ),
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                   child: ElevatedButton(
                     onPressed: () {
-                      print('Button pressed ...');
+                      log('Button pressed ...');
                     },
-                    child: Text('Submit'),
                     style: ElevatedButton.styleFrom(
-                      primary: Color(0xFF25C419),
+                      backgroundColor: const Color(0xFF25C419),
                       padding: EdgeInsets.zero,
                       elevation: 2,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
                     ),
+                    child: const Text('Submit'),
                   ),
                 ),
               ],

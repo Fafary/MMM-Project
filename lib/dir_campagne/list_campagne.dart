@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../model/campagne_model.dart';
+import '../model/database.dart';
 
 class ListCampaignScreen extends StatefulWidget {
   const ListCampaignScreen({Key? key}) : super(key: key);
@@ -10,6 +11,8 @@ class ListCampaignScreen extends StatefulWidget {
 }
 
 class ListCampaignScreenState extends State<ListCampaignScreen> {
+  List<Campagne> campagnes = [];
+
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final TextEditingController textController = TextEditingController();
   final FocusNode textFieldFocusNode = FocusNode();
@@ -25,6 +28,20 @@ class ListCampaignScreenState extends State<ListCampaignScreen> {
     textController.clear();
   }
 
+  final DatabaseServices databaseServices = DatabaseServices();
+
+  Future<void> fetchCampagnes() async {
+    final campagneList = await databaseServices.getCampagneList();
+    setState(() {
+      campagnes = campagneList;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    fetchCampagnes();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -145,21 +162,16 @@ class ListCampaignScreenState extends State<ListCampaignScreen> {
                     ],
                   ),
                 ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
-                      // AFFICHER LE CONTENU DE LA LISTE ICI
-                      // Utilisation du widget CampaignCard pour les campagnes
-                      CampaignCard(
-                        title: 'Save the Bees',
-                        description: 'Aide a proteger les abeilles et leurs habitats',
-                      ),
-                      CampaignCard(
-                        title: 'Plant a Tree',
-                        description: 'Contribue a la reforestation',
-                      ),
+                      for (var campagne in campagnes)
+                        CampaignCard(
+                          title: campagne.titre ?? "titre",
+                          description: campagne.description ?? "description",
+                        ),
                     ],
                   ),
                 ),

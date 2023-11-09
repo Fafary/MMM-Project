@@ -227,7 +227,7 @@ class CampaignScreen extends StatelessWidget {
                         // Navigator.of(context).pushNamed('/create_fiche');
                       },
                       style: ElevatedButton.styleFrom(
-                        primary: Colors.green,
+                        backgroundColor: Colors.green,
                         elevation: 5,
                       ),
                       child: const Text(

@@ -33,7 +33,7 @@ class CampaignCardState extends State<CampaignCard> {
         child: InkWell(
           onTap: () {
             // Naviguer vers la page de campagne
-            Navigator.of(context).pushNamed('/'); // Changer la redirection de la page
+            Navigator.of(context).pushNamed('/campaign_screen'); // Changer la redirection de la page
           },
           child: Container(
             width: double.infinity,
