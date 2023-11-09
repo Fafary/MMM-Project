@@ -2,11 +2,15 @@ import 'package:flutter/material.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import '../dir_campagne/campagne_screen.dart';
+
 class CampaignCard extends StatefulWidget {
   final String title;
   final String description;
+  final Campagne campagne;
 
-  const CampaignCard({super.key, required this.title, required this.description});
+  const CampaignCard({Key? key, required this.title, required this.description, required this.campagne})
+      : super(key: key);
 
   @override
   CampaignCardState createState() => CampaignCardState();
@@ -32,8 +36,11 @@ class CampaignCardState extends State<CampaignCard> {
         },
         child: InkWell(
           onTap: () {
-            // Naviguer vers la page de campagne
-            Navigator.of(context).pushNamed('/campaign_screen'); // Changer la redirection de la page
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => CampaignScreen(campagne: widget.campagne),
+              ),
+            );
           },
           child: Container(
             width: double.infinity,

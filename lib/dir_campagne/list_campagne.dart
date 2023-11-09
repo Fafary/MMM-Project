@@ -171,6 +171,7 @@ class ListCampaignScreenState extends State<ListCampaignScreen> {
                         CampaignCard(
                           title: campagne.titre ?? "titre",
                           description: campagne.description ?? "description",
+                          campagne: campagne,
                         ),
                     ],
                   ),

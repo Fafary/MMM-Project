@@ -2,12 +2,38 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 
-class CampaignScreen extends StatelessWidget {
-  const CampaignScreen({Key? key}) : super(key: key);
+import '../model/campagne_model.dart';
+import '../model/database.dart';
+
+class CampaignScreen extends StatefulWidget {
+  final Campagne campagne;
+
+  const CampaignScreen({Key? key, required this.campagne}) : super(key: key);
+
+  @override
+  CampaignScreenState createState() => CampaignScreenState();
+}
+
+class CampaignScreenState extends State<CampaignScreen> {
+  List<Campagne> campagnes = [];
+
+  final DatabaseServices databaseServices = DatabaseServices();
+
+  Future<void> fetchCampagnes() async {
+    final campagneList = await databaseServices.getCampagneList();
+    setState(() {
+      campagnes = campagneList;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    fetchCampagnes();
+  }
 
   @override
   Widget build(BuildContext context) {
-
     return GestureDetector(
       onTap: () {
         final currentFocus = FocusScope.of(context);
@@ -31,13 +57,6 @@ class CampaignScreen extends StatelessWidget {
               Navigator.of(context).pushNamed('/list_campaign');
             },
           ),
-          title: const Text(
-            'Détails de la campagne',
-            style: TextStyle(
-              fontFamily: 'Roboto',
-              color: Colors.black,
-            ),
-          ),
           actions: const [],
           centerTitle: false,
           elevation: 0,
@@ -60,13 +79,13 @@ class CampaignScreen extends StatelessWidget {
                         color: Colors.green,
                         borderRadius: BorderRadius.circular(40),
                       ),
-                      child: const Align(
+                      child: Align(
                         alignment: Alignment.center,
                         child: Padding(
-                          padding: EdgeInsets.fromLTRB(16, 0, 0, 0),
+                          padding: const EdgeInsets.fromLTRB(16, 0, 0, 0),
                           child: Text(
-                            'Titre de la campagne',
-                            style: TextStyle(
+                            widget.campagne.titre ?? "Titre",
+                            style: const TextStyle(
                               fontFamily: 'Roboto',
                               color: Colors.white,
                               fontSize: 28,
@@ -78,8 +97,8 @@ class CampaignScreen extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  const Padding(
-                    padding: EdgeInsets.fromLTRB(16, 0, 16, 0),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -88,7 +107,7 @@ class CampaignScreen extends StatelessWidget {
                           mainAxisSize: MainAxisSize.max,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
+                            const Text(
                               'Date de début',
                               style: TextStyle(
                                 fontFamily: 'Roboto',
@@ -96,10 +115,9 @@ class CampaignScreen extends StatelessWidget {
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            // Exemple de texte A REMPLACER --------------------
                             Text(
-                              '01/01/2023',
-                              style: TextStyle(
+                              (widget.campagne.dateDebut as String?) ?? '01/01/2023',
+                              style: const TextStyle(
                                 fontFamily: 'Roboto',
                                 color: Colors.black,
                               ),
@@ -110,7 +128,7 @@ class CampaignScreen extends StatelessWidget {
                           mainAxisSize: MainAxisSize.max,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
+                            const Text(
                               'Date de fin',
                               style: TextStyle(
                                 fontFamily: 'Roboto',
@@ -118,10 +136,9 @@ class CampaignScreen extends StatelessWidget {
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            // Exemple de texte A REMPLACER --------------------
                             Text(
-                              '01/31/2023',
-                              style: TextStyle(
+                              (widget.campagne.dateFin as String?) ?? '01/31/2023',
+                              style: const TextStyle(
                                 fontFamily: 'Roboto',
                                 color: Colors.black,
                               ),
@@ -134,7 +151,7 @@ class CampaignScreen extends StatelessWidget {
                   const Padding(
                     padding: EdgeInsets.fromLTRB(16, 12, 0, 0),
                     child: Text(
-                      'Description de la campagne',
+                      "Description",
                       style: TextStyle(
                         fontFamily: 'Roboto',
                         color: Colors.black,
@@ -142,11 +159,11 @@ class CampaignScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const Padding(
-                    padding: EdgeInsets.fromLTRB(16, 4, 0, 0),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(16, 4, 0, 0),
                     child: Text(
-                      'Exemple de description',
-                      style: TextStyle(
+                      widget.campagne.description ?? 'Exemple de description',
+                      style: const TextStyle(
                         fontFamily: 'Roboto',
                         color: Colors.black,
                       ),
@@ -155,7 +172,7 @@ class CampaignScreen extends StatelessWidget {
                   const Padding(
                     padding: EdgeInsets.fromLTRB(16, 12, 0, 0),
                     child: Text(
-                      'Territoire',
+                      "Territoire",
                       style: TextStyle(
                         fontFamily: 'Roboto',
                         color: Colors.black,
@@ -163,11 +180,11 @@ class CampaignScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const Padding(
-                    padding: EdgeInsets.fromLTRB(16, 4, 0, 0),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(16, 4, 0, 0),
                     child: Text(
-                      'Bretagne',
-                      style: TextStyle(
+                      widget.campagne.territoire ?? 'Bretagne',
+                      style: const TextStyle(
                         fontFamily: 'Roboto',
                         color: Colors.black,
                       ),
@@ -184,11 +201,11 @@ class CampaignScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const Padding(
-                    padding: EdgeInsets.fromLTRB(16, 4, 0, 0),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(16, 4, 0, 0),
                     child: Text(
-                      'Champ de texte',
-                      style: TextStyle(
+                      widget.campagne.groupes ?? 'Champ de texte',
+                      style: const TextStyle(
                         fontFamily: 'Roboto',
                         color: Colors.black,
                       ),
