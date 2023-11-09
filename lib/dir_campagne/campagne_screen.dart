@@ -228,11 +228,11 @@ class CampaignScreenState extends State<CampaignScreen> {
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       children: [
-                        buildCustomListItem('Oiseaux'),
+                        buildCustomListItem('Oiseaux', context),
                         const SizedBox(height: 10),
-                        buildCustomListItem('Mammifère'),
+                        buildCustomListItem('Mammifère', context),
                         const SizedBox(height: 10),
-                        buildCustomListItem('Insectes'),
+                        buildCustomListItem('Insectes', context),
                       ],
                     ),
                   ),
@@ -267,10 +267,10 @@ class CampaignScreenState extends State<CampaignScreen> {
   }
 }
 
-Widget buildCustomListItem(String title) {
+Widget buildCustomListItem(String title, context) {
   return InkWell(
     onTap: () {
-      // Gére l'action lorsque l'élément est cliqué
+      Navigator.of(context).pushNamed('/fiche_screen');
     },
     child: Material(
       color: Colors.transparent,
