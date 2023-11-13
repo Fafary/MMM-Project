@@ -335,8 +335,8 @@ class CampagneCreationState extends State<CampagneCreation> {
                           'groupes':groupesController.text,
                         };
 
-                        // Créer un objet Chantier à partir des valeurs du formulaire
-                        final chantier = Campagne(
+                        // Créer un objet Campagne à partir des valeurs du formulaire
+                        final campagne = Campagne(
                           titre: formData['titre'],
                           //dateDebut: formData['dateDebut'],
                           //dateFin: formData['dateFin'],
@@ -345,8 +345,8 @@ class CampagneCreationState extends State<CampagneCreation> {
                           groupes: formData['groupes'],
                         );
 
-                        // Envoyer ou utiliser l'objet chantier en l'envoyant à Firebase
-                        await databaseServices.updateCampagneData(chantier);
+                        // Envoyer ou utiliser l'objet campagne en l'envoyant à Firebase
+                        await databaseServices.updateCampagneData(campagne);
 
                         log('Button create campaign pressed');
                         // ignore: use_build_context_synchronously

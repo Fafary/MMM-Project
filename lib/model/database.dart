@@ -34,9 +34,9 @@ class DatabaseServices {
 
   ///updates the data of the item of same id as [demande], if the id doesn't
   ///exist in the database, the item is created.
-  Future<void> updateFicheData(Fiche fiche) async {
+  Future<void> updateFicheData(String titre, Fiche fiche) async {
     try {
-      await docRefFiche.doc(fiche.id).set(fiche);
+      await docRefCampagne.doc(titre).collection('fiche').doc(fiche.id).set(fiche.toFirestore());
     } catch (e) {
       log("Error updating fiche data: $e");
     }

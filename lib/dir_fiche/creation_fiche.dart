@@ -1,13 +1,20 @@
+import 'dart:developer';
 
-import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/material.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:location/location.dart';
 import 'package:intl/intl.dart';
 
+import '../dir_campagne/campagne_screen.dart';
+import '../model/campagne_model.dart';
+import '../model/database.dart';
+import '../model/fiche_model.dart';
+
 class FicheScreen extends StatefulWidget {
-  const FicheScreen({Key? key}) : super(key: key);
+  final Campagne campagne;
+
+  const FicheScreen({Key? key, required this.campagne}) : super(key: key);
 
   @override
   FicheScreenWidgetState createState() => FicheScreenWidgetState();
@@ -17,26 +24,37 @@ class FicheScreenWidgetState extends State<FicheScreen> {
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
-  TextEditingController textController1 = TextEditingController();
+  TextEditingController afficheGPS = TextEditingController();
   FocusNode textFieldFocusNode1 = FocusNode();
+  TextEditingController longitudeController = TextEditingController();
+  TextEditingController latitudeController = TextEditingController();
 
-  TextEditingController textController2 = TextEditingController();
+  TextEditingController dateController = TextEditingController();
+  TextEditingController heureController = TextEditingController();
+  TextEditingController dateHeureController = TextEditingController();
   FocusNode textFieldFocusNode2 = FocusNode();
 
-  TextEditingController textController3 = TextEditingController();
+  TextEditingController localisationController = TextEditingController();
   FocusNode textFieldFocusNode3 = FocusNode();
 
-  TextEditingController textController4 = TextEditingController();
+  TextEditingController observationController = TextEditingController();
   FocusNode textFieldFocusNode4 = FocusNode();
 
   final unfocusNode = FocusNode();
 
+  final DatabaseServices databaseServices = DatabaseServices();
+
   @override
   void dispose() {
     super.dispose();
-    textController1.dispose();
-    textController2.dispose();
-    textController4.dispose();
+    afficheGPS.dispose();
+    longitudeController.dispose();
+    latitudeController.dispose();
+    dateController.dispose();
+    heureController.dispose();
+    dateHeureController.dispose();
+    localisationController.dispose();
+    observationController.dispose();
     textFieldFocusNode1.dispose();
     textFieldFocusNode2.dispose();
     textFieldFocusNode3.dispose();
@@ -53,6 +71,25 @@ class FicheScreenWidgetState extends State<FicheScreen> {
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: Colors.white,
+        appBar: AppBar(
+          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+          title: const Text('Liste des campagnes'),
+          actions: [
+            Padding(
+              padding: const EdgeInsets.only(right: 16.0),
+              child: IconButton(
+                icon: const Icon(
+                  Icons.close_rounded,
+                  color: Colors.black,
+                  size: 30,
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ),
+          ],
+        ),
         body: SafeArea(
           top: true,
           child: SingleChildScrollView(
@@ -60,12 +97,12 @@ class FicheScreenWidgetState extends State<FicheScreen> {
               mainAxisSize: MainAxisSize.max,
               children: [
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(16, 16, 16, 16),
+                  padding: const EdgeInsetsDirectional.fromSTEB(16, 16, 16, 16),
                   child: Row(
                     children: [
                       Expanded(
                         child: TextFormField(
-                          controller: textController1,
+                          controller: afficheGPS,
                           focusNode: textFieldFocusNode1,
                           readOnly: true,
                           obscureText: false,
@@ -91,28 +128,28 @@ class FicheScreenWidgetState extends State<FicheScreen> {
                         ),
                       ),
                       IconButton(
-                        icon: Icon(Icons.location_on),
+                        icon: const Icon(Icons.location_on),
                         color: Colors.black,
                         onPressed: () async {
                           // Récupére la position actuelle
                           Location location = Location();
                           // Vérifier que l'on a accès
-                          bool _serviceEnabled;
-                          PermissionStatus _permissionGranted;
+                          bool serviceEnabled;
+                          PermissionStatus permissionGranted;
                           LocationData currentLocation;
 
-                          _serviceEnabled = await location.serviceEnabled();
-                          if (!_serviceEnabled) {
-                            _serviceEnabled = await location.requestService();
-                            if (!_serviceEnabled) {
+                          serviceEnabled = await location.serviceEnabled();
+                          if (!serviceEnabled) {
+                            serviceEnabled = await location.requestService();
+                            if (!serviceEnabled) {
                               return;
                             }
                           }
 
-                          _permissionGranted = await location.hasPermission();
-                          if (_permissionGranted == PermissionStatus.denied) {
-                            _permissionGranted = await location.requestPermission();
-                            if (_permissionGranted != PermissionStatus.granted) {
+                          permissionGranted = await location.hasPermission();
+                          if (permissionGranted == PermissionStatus.denied) {
+                            permissionGranted = await location.requestPermission();
+                            if (permissionGranted != PermissionStatus.granted) {
                               return;
                             }
                           }
@@ -120,9 +157,11 @@ class FicheScreenWidgetState extends State<FicheScreen> {
                           try {
                             currentLocation = await location.getLocation();
                             // Mettre à jour le contrôleur avec la latitude actuelle
-                            textController1.text = currentLocation.latitude.toString()+', '+currentLocation.longitude.toString();
+                            afficheGPS.text = '${currentLocation.latitude}, ${currentLocation.longitude}';
+                            longitudeController.text = '${currentLocation.longitude}';
+                            latitudeController.text = '${currentLocation.latitude}';
                           } catch (e) {
-                            print('Erreur lors de la récupération de la position : $e');
+                            log('Erreur lors de la récupération de la position : $e');
                           }
                         },
                       ),
@@ -130,19 +169,21 @@ class FicheScreenWidgetState extends State<FicheScreen> {
                   ),
                 ),
                 DateTimePickerFormField(
-                  controller: textController2,
+                  dateController: dateController,
+                  timeController: heureController,
+                  dateTimeController: dateHeureController,
                   focusNode: textFieldFocusNode2,
                   labelText: 'Date et Heure',
                   hintText: 'Choisir une date et une heure',
                 ),
                 customTextFormField(
-                  controller: textController3,
+                  controller: localisationController,
                   focusNode: textFieldFocusNode3,
                   labelText: 'Localisation',
                   hintText: 'Définir une localisation',
                 ),
                 customTextFormField(
-                  controller: textController4,
+                  controller: observationController,
                   focusNode: textFieldFocusNode4,
                   labelText: 'Description',
                   hintText: 'Entrer une description',
@@ -157,9 +198,9 @@ class FicheScreenWidgetState extends State<FicheScreen> {
 
                       if (pickedFile != null) {
                         // pickedFile.path sert à accéder au chemin de l'image sélectionnée
-                        print('Image sélectionnée : ${pickedFile.path}');
+                        log('Image sélectionnée : ${pickedFile.path}');
                       } else {
-                        print('Aucune image sélectionnée.');
+                        log('Aucune image sélectionnée.');
                       }
                     },
                     style: ElevatedButton.styleFrom(
@@ -182,9 +223,38 @@ class FicheScreenWidgetState extends State<FicheScreen> {
                 Padding(
                   padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
                   child: ElevatedButton(
-                    onPressed: () {
-                      print('Button pressed to go on sheet list');
-                      //Navigator.pushNamed(currentContext, '/list_campaign');
+                    onPressed: () async {
+
+                      final formData = {
+                        'longitude': longitudeController.text,
+                        'latitude': latitudeController.text,
+                        'date': dateController.text,
+                        'heure': heureController.text,
+                        'localisation':localisationController.text,
+                        'observation':observationController.text,
+                      };
+
+                      // Créer un objet Fiche à partir des valeurs du formulaire
+                      final fiche = Fiche(
+                        longitude: formData['longitude'],
+                        latitude: formData['latitude'],
+                        date: formData['date'],
+                        heure: formData['heure'],
+                        lieu: formData['localisation'],
+                        //photos: formData['photos'],
+                        observation: formData['observation'],
+                      );
+
+                      // Envoyer ou utiliser l'objet chantier en l'envoyant à Firebase
+                      await databaseServices.updateFicheData(widget.campagne.titre!,fiche);
+
+                      log('Button create campaign pressed');
+                      // ignore: use_build_context_synchronously
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => CampaignScreen(campagne: widget.campagne),
+                        ),
+                      );
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.green,
@@ -252,25 +322,32 @@ Widget customTextFormField({
 }
 
 class DateTimePickerFormField extends StatelessWidget {
-  final TextEditingController controller;
+  final TextEditingController dateController;
+  final TextEditingController timeController;
+  final TextEditingController dateTimeController;
   final FocusNode focusNode;
   final String labelText;
   final String hintText;
 
   DateTimePickerFormField({
-    required this.controller,
+    Key? key,
+    required this.dateController,
+    required this.timeController,
+    required this.dateTimeController,
     required this.focusNode,
     required this.labelText,
     required this.hintText,
-  });
+  }) : super(key: key);
 
-  final format = DateFormat("yyyy-MM-dd HH:mm");
+  final DateFormat format = DateFormat("yyyy-MM-dd HH:mm");
+  final DateFormat dateFormat = DateFormat("yyyy-MM-dd");
+  final DateFormat timeFormat = DateFormat("HH:mm");
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsetsDirectional.fromSTEB(16, 16, 16, 16),
-      child: Column (
+      padding: const EdgeInsetsDirectional.fromSTEB(16, 16, 16, 16),
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(
@@ -281,11 +358,9 @@ class DateTimePickerFormField extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
-          SizedBox(height: 8),
-
+          const SizedBox(height: 8),
           TextFormField(
-            readOnly: true,
-            controller: controller,
+            controller: dateTimeController,
             focusNode: focusNode,
             obscureText: false,
             onTap: () async {
@@ -297,6 +372,7 @@ class DateTimePickerFormField extends StatelessWidget {
               );
 
               if (pickedDate != null) {
+                // ignore: use_build_context_synchronously
                 TimeOfDay? pickedTime = await showTimePicker(
                   context: context,
                   initialTime: TimeOfDay.now(),
@@ -311,7 +387,9 @@ class DateTimePickerFormField extends StatelessWidget {
                     pickedTime.minute,
                   );
 
-                  controller.text = format.format(pickedDateTime);
+                  dateController.text = dateFormat.format(pickedDateTime);
+                  timeController.text = timeFormat.format(pickedDateTime);
+                  dateTimeController.text = format.format(pickedDateTime);
                 }
               }
             },
@@ -332,7 +410,7 @@ class DateTimePickerFormField extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10),
               ),
             ),
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 16,
               color: Colors.black,
             ),

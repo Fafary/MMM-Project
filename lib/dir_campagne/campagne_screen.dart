@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 
+import '../dir_fiche/creation_fiche.dart';
 import '../model/campagne_model.dart';
 import '../model/database.dart';
 
@@ -34,6 +35,8 @@ class CampaignScreenState extends State<CampaignScreen> {
 
   @override
   Widget build(BuildContext context) {
+    String? titre = widget.campagne.titre;
+    titre!;
     return GestureDetector(
       onTap: () {
         final currentFocus = FocusScope.of(context);
@@ -84,7 +87,7 @@ class CampaignScreenState extends State<CampaignScreen> {
                         child: Padding(
                           padding: const EdgeInsets.fromLTRB(16, 0, 0, 0),
                           child: Text(
-                            widget.campagne.titre ?? "Titre",
+                            titre,
                             style: const TextStyle(
                               fontFamily: 'Roboto',
                               color: Colors.white,
@@ -228,11 +231,11 @@ class CampaignScreenState extends State<CampaignScreen> {
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       children: [
-                        buildCustomListItem('Oiseaux', context),
+                        buildCustomListItem('Oiseaux', titre, context),
                         const SizedBox(height: 10),
-                        buildCustomListItem('Mammifère', context),
+                        buildCustomListItem('Mammifère', titre, context),
                         const SizedBox(height: 10),
-                        buildCustomListItem('Insectes', context),
+                        buildCustomListItem('Insectes', titre, context),
                       ],
                     ),
                   ),
@@ -241,7 +244,12 @@ class CampaignScreenState extends State<CampaignScreen> {
                     alignment: Alignment.center,
                     child: ElevatedButton(
                       onPressed: () {
-                        // Navigator.of(context).pushNamed('/create_fiche');
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => FicheScreen(campagne: widget.campagne),
+                          ),
+                        );
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.green,
@@ -267,10 +275,10 @@ class CampaignScreenState extends State<CampaignScreen> {
   }
 }
 
-Widget buildCustomListItem(String title, context) {
+Widget buildCustomListItem(String title, String titreCampagne, context) {
   return InkWell(
     onTap: () {
-      Navigator.of(context).pushNamed('/fiche_screen');
+      Navigator.of(context).pushNamed('/fiche_screen', arguments: titreCampagne);
     },
     child: Material(
       color: Colors.transparent,

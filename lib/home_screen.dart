@@ -22,13 +22,6 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             ElevatedButton(
               onPressed: () {
-                Navigator.of(context).pushNamed('/creation_fiche');
-              },
-              child: const Text("Aller vers ecran creation d'une fiche"),
-            ),
-            const SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: () {
                 Navigator.of(context).pushNamed('/login');
               },
               child: const Text('Aller vers ecran login'),
