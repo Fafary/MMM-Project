@@ -42,7 +42,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        backgroundColor: const Color(0xFF78AB46), // Couleur de la barre d'en haut
         title: const Text('Home'),
       ),
       body: Center(
@@ -84,7 +84,7 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        backgroundColor: const Color(0xFF78AB46), // Couleur de la barre d'en haut
         title: const Text('Login'),
       ),
       // ... Autres éléments de la page de connexion
@@ -99,7 +99,7 @@ class CampaignListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        backgroundColor: const Color(0xFF78AB46), // Couleur de la barre d'en haut
         title: const Text('Liste des Campagnes'),
       ),
       // ... Autres éléments de la page de liste des campagnes
@@ -114,7 +114,7 @@ class CreateCampaignPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        backgroundColor: const Color(0xFF78AB46), // Couleur de la barre d'en haut
         title: const Text("Création d'une Campagne"),
       ),
       // ... Autres éléments de la page de création de campagne

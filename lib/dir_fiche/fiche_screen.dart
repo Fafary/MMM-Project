@@ -56,9 +56,9 @@ class FicheWidgetState extends State<FicheWidget> {
       },
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        backgroundColor: Colors.white, // Couleur de fond
         appBar: AppBar(
-          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+          backgroundColor: const Color(0xFF78AB46), // Couleur de la barre d'en-tête
           automaticallyImplyLeading: false,
           actions: const [],
           centerTitle: false,
@@ -75,7 +75,7 @@ class FicheWidgetState extends State<FicheWidget> {
                   padding: const EdgeInsets.only(right: 16),
                   child: Container(
                     decoration: BoxDecoration(
-                      color: Theme.of(context).cardColor,
+                      color: Colors.white, // Couleur du conteneur
                     ),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -99,7 +99,7 @@ class FicheWidgetState extends State<FicheWidget> {
                   padding: const EdgeInsets.only(right: 16),
                   child: Container(
                     decoration: BoxDecoration(
-                      color: Theme.of(context).cardColor,
+                      color: Colors.white, // Couleur du conteneur
                     ),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
@@ -113,7 +113,7 @@ class FicheWidgetState extends State<FicheWidget> {
                           hintStyle: Theme.of(context).textTheme.bodyMedium,
                           enabledBorder: OutlineInputBorder(
                             borderSide: const BorderSide(
-                              color: Color(0xFF25C419),
+                              color: Color(0xFF78AB46),
                               width: 2,
                             ),
                             borderRadius: BorderRadius.circular(10),
@@ -142,8 +142,7 @@ class FicheWidgetState extends State<FicheWidget> {
                         ),
                         style: Theme.of(context).textTheme.bodyMedium,
                         minLines: 5,
-                        maxLines: null, // Vous pouvez définir maxLines sur null pour permettre un nombre illimité de lignes.
-                        // Add your validation logic here
+                        maxLines: null,
                       ),
                     ),
                   ),
@@ -152,7 +151,7 @@ class FicheWidgetState extends State<FicheWidget> {
                   padding: const EdgeInsets.only(right: 16),
                   child: Container(
                     decoration: BoxDecoration(
-                      color: Theme.of(context).cardColor,
+                      color: Colors.white, // Couleur du conteneur
                     ),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
@@ -228,7 +227,7 @@ class FicheWidgetState extends State<FicheWidget> {
                       log('Button pressed ...');
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF25C419),
+                      backgroundColor: const Color(0xFFE5F3E2),
                       padding: EdgeInsets.zero,
                       elevation: 2,
                       shape: RoundedRectangleBorder(

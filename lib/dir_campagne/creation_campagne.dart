@@ -53,7 +53,7 @@ class CampagneCreationState extends State<CampagneCreation> {
       child: Scaffold(
         key: scaffoldKey,
         appBar: AppBar(
-          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+          backgroundColor: const Color(0xFF78AB46), // Couleur de la barre d'en haut
           title: const Text('Créer une campagne'),
           actions: [
             Padding(
@@ -77,21 +77,61 @@ class CampagneCreationState extends State<CampagneCreation> {
           child: Padding(
             padding: const EdgeInsets.fromLTRB(16, 32, 16, 0),
             child: Column(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      FormBuilderTextField(
-                        name: 'title',
-                        validator:FormBuilderValidators.required(errorText: 'Ce champ est obligatoire'),
-                        controller: titleController,
-                        focusNode: textFieldFocusNode1,
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    FormBuilderTextField(
+                      name: 'title',
+                      validator: FormBuilderValidators.required(
+                          errorText: 'Ce champ est obligatoire'),
+                      controller: titleController,
+                      focusNode: textFieldFocusNode1,
+                      obscureText: false,
+                      decoration: InputDecoration(
+                        labelText: 'Titre',
+                        hintText: 'Enter campaign title',
+                        hintStyle: const TextStyle(
+                          fontFamily: 'Roboto',
+                          color: Colors.grey,
+                          fontSize: 14,
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: const BorderSide(
+                            color: Colors.black,
+                            width: 2,
+                          ),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: const BorderSide(
+                            color: Colors.lightGreen,
+                            width: 2,
+                          ),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        contentPadding: const EdgeInsets.fromLTRB(20, 32, 20, 12),
+                      ),
+                      style: const TextStyle(
+                        fontFamily: 'Roboto',
+                        color: Colors.black,
+                        fontSize: 16,
+                        fontWeight: FontWeight.normal,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 16, 0, 0),
+                      child: FormBuilderTextField(
+                        name: 'description',
+                        validator: FormBuilderValidators.required(
+                            errorText: 'Ce champ est obligatoire'),
+                        controller: descriptionController,
+                        focusNode: textFieldFocusNode2,
                         obscureText: false,
                         decoration: InputDecoration(
-                          labelText: 'Titre',
-                          hintText: 'Enter campaign title',
+                          hintText: 'Entrer une description...',
                           hintStyle: const TextStyle(
                             fontFamily: 'Roboto',
                             color: Colors.grey,
@@ -120,267 +160,230 @@ class CampagneCreationState extends State<CampagneCreation> {
                           fontWeight: FontWeight.normal,
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(0, 16, 0, 0),
-                        child: FormBuilderTextField(
-                          name: 'description',
-                          validator: FormBuilderValidators.required(errorText: 'Ce champ est obligatoire'),
-                          controller: descriptionController,
-                          focusNode: textFieldFocusNode2,
-                          obscureText: false,
-                          decoration: InputDecoration(
-                            hintText: 'Entrer une description...',
-                            hintStyle: const TextStyle(
-                              fontFamily: 'Roboto',
-                              color: Colors.grey,
-                              fontSize: 14,
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 16, 0, 0),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                            width: MediaQuery.of(context).size.width * 0.44,
+                            height: 50,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8),
+                              border: Border.all(
                                 color: Colors.black,
                                 width: 2,
                               ),
-                              borderRadius: BorderRadius.circular(8),
                             ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                color: Colors.lightGreen,
-                                width: 2,
-                              ),
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            contentPadding: const EdgeInsets.fromLTRB(20, 32, 20, 12),
-                          ),
-                          style: const TextStyle(
-                            fontFamily: 'Roboto',
-                            color: Colors.black,
-                            fontSize: 16,
-                            fontWeight: FontWeight.normal,
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(0, 16, 0, 0),
-                        child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Container(
-                                width: MediaQuery.of(context).size.width * 0.44,
-                                height: 50,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(8),
-                                  border: Border.all(
+                            child: const Padding(
+                              padding: EdgeInsets.fromLTRB(12, 5, 12, 5),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    'Date de début',
+                                    style: TextStyle(
+                                      fontFamily: 'Outfit',
+                                      color: Colors.black,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                  Icon(
+                                    Icons.date_range_outlined,
                                     color: Colors.black,
-                                    width: 2,
+                                    size: 24,
                                   ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Container(
+                              width: MediaQuery
+                                  .of(context)
+                                  .size
+                                  .width * 0.44,
+                              height: 50,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+                                border: Border.all(
+                                  color: Colors.black,
+                                  width: 2,
                                 ),
-                                child: const Padding(
-                                  padding: EdgeInsets.fromLTRB(12, 5, 12, 5),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        'Date de début',
-                                        style: TextStyle(
-                                          fontFamily: 'Outfit',
-                                          color: Colors.black,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                      ),
-                                      Icon(
-                                        Icons.date_range_outlined,
+                              ),
+                              child: const Padding(
+                                padding: EdgeInsets.fromLTRB(12, 5, 12, 5),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      'Date de fin',
+                                      style: TextStyle(
+                                        fontFamily: 'Outfit',
                                         color: Colors.black,
-                                        size: 24,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w500,
                                       ),
-                                    ],
-                                  ),
+                                    ),
+                                    Icon(
+                                      Icons.date_range_outlined,
+                                      color: Colors.black,
+                                      size: 24,
+                                    ),
+                                  ],
                                 ),
-                              ),
-                              Container(
-                                width: MediaQuery
-                                    .of(context)
-                                    .size
-                                    .width * 0.44,
-                                height: 50,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(8),
-                                  border: Border.all(
-                                    color: Colors.black,
-                                    width: 2,
-                                  ),
-                                ),
-                                child: const Padding(
-                                  padding: EdgeInsets.fromLTRB(12, 5, 12, 5),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        'Date de fin',
-                                        style: TextStyle(
-                                          fontFamily: 'Outfit',
-                                          color: Colors.black,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                      ),
-                                      Icon(
-                                        Icons.date_range_outlined,
-                                        color: Colors.black,
-                                        size: 24,
-                                      ),
-                                    ],
-                                  ),
-                                )
-                              ),
-                            ],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(0, 16, 0, 0),
-                        child: FormBuilderTextField(
-                          name: 'nameTerritory',
-                          validator: FormBuilderValidators.required(errorText: 'Ce champ est obligatoire'),
-                          controller: territoireController,
-                          focusNode: textFieldFocusNode3,
-                          obscureText: false,
-                          decoration: InputDecoration(
-                            labelText: 'Territoire',
-                            hintText: 'Entrer un territoire (commune ou liste de communes)',
-                            hintStyle: const TextStyle(
-                              fontFamily: 'Roboto',
-                              color: Colors.grey,
-                              fontSize: 14,
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                color: Colors.black,
-                                width: 2,
-                              ),
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                color: Colors.lightGreen,
-                                width: 2,
-                              ),
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            contentPadding: const EdgeInsets.fromLTRB(20, 32, 20, 12),
+                              )
                           ),
-                          style: const TextStyle(
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 16, 0, 0),
+                      child: FormBuilderTextField(
+                        name: 'nameTerritory',
+                        validator: FormBuilderValidators.required(
+                            errorText: 'Ce champ est obligatoire'),
+                        controller: territoireController,
+                        focusNode: textFieldFocusNode3,
+                        obscureText: false,
+                        decoration: InputDecoration(
+                          labelText: 'Territoire',
+                          hintText: 'Entrer un territoire (commune ou liste de communes)',
+                          hintStyle: const TextStyle(
                             fontFamily: 'Roboto',
-                            color: Colors.black,
-                            fontSize: 16,
-                            fontWeight: FontWeight.normal,
+                            color: Colors.grey,
+                            fontSize: 14,
                           ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                              color: Colors.black,
+                              width: 2,
+                            ),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                              color: Colors.lightGreen,
+                              width: 2,
+                            ),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          contentPadding: const EdgeInsets.fromLTRB(20, 32, 20, 12),
+                        ),
+                        style: const TextStyle(
+                          fontFamily: 'Roboto',
+                          color: Colors.black,
+                          fontSize: 16,
+                          fontWeight: FontWeight.normal,
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(0, 16, 0, 0),
-                        child: FormBuilderTextField(
-                          name: 'groupName',
-                          controller: groupesController,
-                          focusNode: textFieldFocusNode4,
-                          validator: FormBuilderValidators.required(errorText: 'Ce champ est obligatoire'),
-                          decoration: InputDecoration(
-                            labelText: ' Groupes Taxonomic',
-                            hintText: 'Entrer des groupes taxonomic à identifier',
-                            hintStyle: const TextStyle(
-                              fontFamily: 'Roboto',
-                              color: Colors.grey,
-                              fontSize: 14,
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                color: Colors.black,
-                                width: 2,
-                              ),
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                color: Colors.lightGreen,
-                                width: 2,
-                              ),
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            contentPadding: const EdgeInsets.fromLTRB(20, 32, 20, 12),
-                          ),
-                          style: const TextStyle(
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 16, 0, 0),
+                      child: FormBuilderTextField(
+                        name: 'groupName',
+                        controller: groupesController,
+                        focusNode: textFieldFocusNode4,
+                        validator: FormBuilderValidators.required(
+                            errorText: 'Ce champ est obligatoire'),
+                        decoration: InputDecoration(
+                          labelText: ' Groupes Taxonomic',
+                          hintText: 'Entrer des groupes taxonomic à identifier',
+                          hintStyle: const TextStyle(
                             fontFamily: 'Roboto',
-                            color: Colors.black,
-                            fontSize: 16,
-                            fontWeight: FontWeight.normal,
+                            color: Colors.grey,
+                            fontSize: 14,
                           ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                              color: Colors.black,
+                              width: 2,
+                            ),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                              color: Colors.lightGreen,
+                              width: 2,
+                            ),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          contentPadding: const EdgeInsets.fromLTRB(20, 32, 20, 12),
+                        ),
+                        style: const TextStyle(
+                          fontFamily: 'Roboto',
+                          color: Colors.black,
+                          fontSize: 16,
+                          fontWeight: FontWeight.normal,
                         ),
                       ),
-                    ],
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 24, 0, 16),
-                    child: ElevatedButton(
-                      onPressed: () async {
-                        final currentContext = context;
+                    ),
+                  ],
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 24, 0, 16),
+                  child: ElevatedButton(
+                    onPressed: () async {
+                      final currentContext = context;
 
-                        final formData = {
-                          'titre': titleController.text,
-                          //'dateDebut': dateDebutController.text,
-                          //'dateFin':dateFinController.text,
-                          'description':descriptionController.text,
-                          'territoire':territoireController.text,
-                          'groupes':groupesController.text,
-                        };
+                      final formData = {
+                        'titre': titleController.text,
+                        //'dateDebut': dateDebutController.text,
+                        //'dateFin':dateFinController.text,
+                        'description': descriptionController.text,
+                        'territoire': territoireController.text,
+                        'groupes': groupesController.text,
+                      };
 
-                        // Créer un objet Campagne à partir des valeurs du formulaire
-                        final campagne = Campagne(
-                          titre: formData['titre'],
-                          //dateDebut: formData['dateDebut'],
-                          //dateFin: formData['dateFin'],
-                          description: formData['description'],
-                          territoire: formData['territoire'],
-                          groupes: formData['groupes'],
-                        );
+                      // Créer un objet Campagne à partir des valeurs du formulaire
+                      final campagne = Campagne(
+                        titre: formData['titre'],
+                        //dateDebut: formData['dateDebut'],
+                        //dateFin: formData['dateFin'],
+                        description: formData['description'],
+                        territoire: formData['territoire'],
+                        groupes: formData['groupes'],
+                      );
 
-                        // Envoyer ou utiliser l'objet campagne en l'envoyant à Firebase
-                        await databaseServices.updateCampagneData(campagne);
+                      // Envoyer ou utiliser l'objet campagne en l'envoyant à Firebase
+                      await databaseServices.updateCampagneData(campagne);
 
-                        log('Button create campaign pressed');
-                        // ignore: use_build_context_synchronously
-                        Navigator.pushNamed(currentContext, '/list_campaign');
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.green,
-                        elevation: 2,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
+                      log('Button create campaign pressed');
+                      // ignore: use_build_context_synchronously
+                      Navigator.pushNamed(currentContext, '/list_campaign');
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.green,
+                      elevation: 2,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
                       ),
-                      child: Container(
-                        width: double.infinity,
-                        height: 55,
-                        alignment: Alignment.center,
-                        child: const Text(
-                          'Créer une campagne',
-                          style: TextStyle(
-                            fontFamily: 'Outfit',
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w500,
-                          ),
+                    ),
+                    child: Container(
+                      width: double.infinity,
+                      height: 55,
+                      alignment: Alignment.center,
+                      child: const Text(
+                        'Créer une campagne',
+                        style: TextStyle(
+                          fontFamily: 'Outfit',
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w500,
                         ),
                       ),
                     ),
                   ),
-                ],
+                ),
+              ],
             ),
           ),
         ),
       ),
     );
   }
-
 }

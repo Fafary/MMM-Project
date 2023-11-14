@@ -21,7 +21,6 @@ class FicheScreen extends StatefulWidget {
 }
 
 class FicheScreenWidgetState extends State<FicheScreen> {
-
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   TextEditingController afficheGPS = TextEditingController();
@@ -72,7 +71,7 @@ class FicheScreenWidgetState extends State<FicheScreen> {
         key: scaffoldKey,
         backgroundColor: Colors.white,
         appBar: AppBar(
-          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+          backgroundColor: const Color(0xFF78AB46), // Couleur de la barre d'en-tête
           actions: [
             Padding(
               padding: const EdgeInsets.only(right: 16.0),
@@ -130,7 +129,7 @@ class FicheScreenWidgetState extends State<FicheScreen> {
                         icon: const Icon(Icons.location_on),
                         color: Colors.black,
                         onPressed: () async {
-                          // Récupére la position actuelle
+                          // Récupère la position actuelle
                           Location location = Location();
                           // Vérifier que l'on a accès
                           bool serviceEnabled;
@@ -203,14 +202,14 @@ class FicheScreenWidgetState extends State<FicheScreen> {
                       }
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.green,
+                      backgroundColor: const Color(0xFF78AB46), // Couleur du bouton
                       elevation: 2,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
                     ),
                     child: const Text(
-                      'Add Photo',
+                      'Ajouter une photo',
                       style: TextStyle(
                         fontSize: 16,
                         fontFamily: 'Outfit',
@@ -223,7 +222,6 @@ class FicheScreenWidgetState extends State<FicheScreen> {
                   padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
                   child: ElevatedButton(
                     onPressed: () async {
-
                       final formData = {
                         'longitude': longitudeController.text,
                         'latitude': latitudeController.text,
@@ -240,7 +238,6 @@ class FicheScreenWidgetState extends State<FicheScreen> {
                         date: formData['date'],
                         heure: formData['heure'],
                         lieu: formData['localisation'],
-                        //photos: formData['photos'],
                         observation: formData['observation'],
                       );
 
@@ -248,7 +245,6 @@ class FicheScreenWidgetState extends State<FicheScreen> {
                       await databaseServices.updateFicheData(widget.campagne.titre!,fiche);
 
                       log('Button create campaign pressed');
-                      // ignore: use_build_context_synchronously
                       Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (context) => CampaignScreen(campagne: widget.campagne),
@@ -256,7 +252,7 @@ class FicheScreenWidgetState extends State<FicheScreen> {
                       );
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.green,
+                      backgroundColor: const Color(0xFF78AB46), // Couleur du bouton
                       elevation: 2,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
@@ -305,7 +301,7 @@ Widget customTextFormField({
         ),
         focusedBorder: OutlineInputBorder(
           borderSide: const BorderSide(
-            color: Colors.green,
+            color: const Color(0xFF78AB46), // Couleur du texte
             width: 2,
           ),
           borderRadius: BorderRadius.circular(10),
@@ -403,7 +399,7 @@ class DateTimePickerFormField extends StatelessWidget {
               ),
               focusedBorder: OutlineInputBorder(
                 borderSide: const BorderSide(
-                  color: Colors.green,
+                  color: const Color(0xFF78AB46), // Couleur du texte
                   width: 2,
                 ),
                 borderRadius: BorderRadius.circular(10),
