@@ -4,8 +4,8 @@ class Fiche {
   String? id;
   String? latitude;
   String? longitude;
-  DateTime? date;
-  DateTime? heure;
+  String? date;
+  String? heure;
   String? lieu;
   String? photos;
   String? observation;

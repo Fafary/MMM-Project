@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../model/campagne_model.dart';
 import '../model/database.dart';
+import '../model/fiche_model.dart';
 
 class CampaignScreen extends StatefulWidget {
   final Campagne campagne;
@@ -15,25 +16,27 @@ class CampaignScreen extends StatefulWidget {
 }
 
 class CampaignScreenState extends State<CampaignScreen> {
-  List<Campagne> campagnes = [];
+  List<Fiche> fiches = [];
 
   final DatabaseServices databaseServices = DatabaseServices();
 
-  Future<void> fetchCampagnes() async {
-    final campagneList = await databaseServices.getCampagneList();
+  Future<void> fetchFiches(String titre) async {
+    final ficheList = await databaseServices.getFicheList(titre);
     setState(() {
-      campagnes = campagneList;
+      fiches = ficheList;
     });
   }
 
   @override
   void initState() {
     super.initState();
-    fetchCampagnes();
+    fetchFiches(widget.campagne.titre!);
   }
 
   @override
   Widget build(BuildContext context) {
+    String? titre = widget.campagne.titre;
+    titre!;
     return GestureDetector(
       onTap: () {
         final currentFocus = FocusScope.of(context);
@@ -84,7 +87,7 @@ class CampaignScreenState extends State<CampaignScreen> {
                         child: Padding(
                           padding: const EdgeInsets.fromLTRB(16, 0, 0, 0),
                           child: Text(
-                            widget.campagne.titre ?? "Titre",
+                            titre,
                             style: const TextStyle(
                               fontFamily: 'Roboto',
                               color: Colors.white,
@@ -228,11 +231,9 @@ class CampaignScreenState extends State<CampaignScreen> {
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       children: [
-                        buildCustomListItem('Oiseaux', context),
-                        const SizedBox(height: 10),
-                        buildCustomListItem('Mammifère', context),
-                        const SizedBox(height: 10),
-                        buildCustomListItem('Insectes', context),
+                        for (var fiche in fiches)
+                          buildCustomListItem(fiche, context),
+                          const SizedBox(height: 10),
                       ],
                     ),
                   ),
@@ -241,7 +242,7 @@ class CampaignScreenState extends State<CampaignScreen> {
                     alignment: Alignment.center,
                     child: ElevatedButton(
                       onPressed: () {
-                        // Navigator.of(context).pushNamed('/create_fiche');
+                        Navigator.of(context).pushNamed('/create_fiche', arguments:widget.campagne);
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFF78AB46), // Couleur du bouton
@@ -252,7 +253,7 @@ class CampaignScreenState extends State<CampaignScreen> {
                         style: TextStyle(
                           fontSize: 16,
                           fontFamily: 'Roboto',
-                          color: Colors.white, // Couleur du texte
+                          color: Colors.white,
                         ),
                       ),
                     ),
@@ -267,10 +268,10 @@ class CampaignScreenState extends State<CampaignScreen> {
   }
 }
 
-Widget buildCustomListItem(String title, context) {
+Widget buildCustomListItem(Fiche fiche, context) {
   return InkWell(
     onTap: () {
-      Navigator.of(context).pushNamed('/fiche_screen');
+      Navigator.of(context).pushNamed('/fiche_screen', arguments: fiche);
     },
     child: Material(
       color: Colors.transparent,
@@ -292,7 +293,7 @@ Widget buildCustomListItem(String title, context) {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                title,
+                fiche.observation ?? '',
                 style: const TextStyle(
                   fontFamily: 'Roboto',
                   fontSize: 16,

@@ -15,13 +15,6 @@ class DatabaseServices {
     toFirestore: (Campagne campagne, options) => campagne.toFirestore(),
   );
 
-  final docRefFiche = doc
-      .collection("Fiche")
-      .withConverter(
-    fromFirestore: Fiche.fromFirestore,
-    toFirestore: (Fiche fiche, options) => fiche.toFirestore(),
-  );
-
   ///updates the data of the item of same titre as [campagne], if the titre doesn't
   ///exist in the database, the item is created.
   Future<void> updateCampagneData(Campagne campagne) async {
@@ -34,9 +27,9 @@ class DatabaseServices {
 
   ///updates the data of the item of same id as [demande], if the id doesn't
   ///exist in the database, the item is created.
-  Future<void> updateFicheData(Fiche fiche) async {
+  Future<void> updateFicheData(String titre, Fiche fiche) async {
     try {
-      await docRefFiche.doc(fiche.id).set(fiche);
+      await docRefCampagne.doc(titre).collection('Fiche').doc(fiche.id).set(fiche.toFirestore());
     } catch (e) {
       log("Error updating fiche data: $e");
     }
@@ -54,10 +47,10 @@ class DatabaseServices {
   }
 
   ///returns a list of the items in "Fiche".
-  Future<List<Fiche>> getFicheList({int limit = 15}) async {
+  Future<List<Fiche>> getFicheList(String titre, {int limit = 15}) async {
     try {
-      final querySnapshot = await docRefFiche.limit(limit).get();
-      return querySnapshot.docs.map((doc) => doc.data()).toList();
+      final querySnapshot = await docRefCampagne.doc(titre).collection('Fiche').limit(limit).get();
+      return querySnapshot.docs.map((doc) => Fiche.fromFirestore(doc, null)).toList();
     } catch (e) {
       log("Error fetching demande list: $e");
       return [];
@@ -71,8 +64,8 @@ class DatabaseServices {
   }
 
   ///returns the amount of items in "Fiche".
-  Future<int> ficheCount() async {
-    final res = await docRefFiche.count().get();
+  Future<int> ficheCount(String titre) async {
+    final res = await docRefCampagne.doc(titre).collection('Fiche').count().get();
     return res.count;
   }
 
@@ -95,9 +88,9 @@ class DatabaseServices {
   }
 
   ///removes [fiche] from "Fiche"
-  Future<void> deleteFiche(Fiche fiche) async{
+  Future<void> deleteFiche(String titre, Fiche fiche) async{
     try {
-      await docRefFiche.doc(fiche.id).delete();
+      await docRefCampagne.doc(titre).collection('Fiche').doc(fiche.id).delete();
     } catch (e) {
       log("Error deleting fiche : $e");
     }
