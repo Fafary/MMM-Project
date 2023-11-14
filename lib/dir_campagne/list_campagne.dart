@@ -12,6 +12,7 @@ class ListCampaignScreen extends StatefulWidget {
 
 class ListCampaignScreenState extends State<ListCampaignScreen> {
   List<Campagne> campagnes = [];
+  List<Campagne> campagnesAffichees = [];
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final TextEditingController textController = TextEditingController();
@@ -25,7 +26,11 @@ class ListCampaignScreenState extends State<ListCampaignScreen> {
 
   // Efface le texte du champ de texte.
   void clearText() {
-    textController.clear();
+    setState(() {
+      textController.clear();
+      campagnesAffichees.clear();
+      campagnesAffichees.addAll(campagnes);
+    });
   }
 
   final DatabaseServices databaseServices = DatabaseServices();
@@ -34,6 +39,17 @@ class ListCampaignScreenState extends State<ListCampaignScreen> {
     final campagneList = await databaseServices.getCampagneList();
     setState(() {
       campagnes = campagneList;
+      campagnesAffichees.addAll(campagnes);
+    });
+  }
+
+  void searchCampagnes(String query) {
+    setState(() {
+      campagnesAffichees = campagnes
+          .where((campagne) =>
+            campagne.titre!.toLowerCase().contains(query.toLowerCase()) ||
+            campagne.description!.toLowerCase().contains(query.toLowerCase()))
+          .toList();
     });
   }
 
@@ -104,6 +120,7 @@ class ListCampaignScreenState extends State<ListCampaignScreen> {
                                 child: TextFormField(
                                   controller: textController,
                                   focusNode: textFieldFocusNode,
+                                  onChanged: searchCampagnes, // Appel la fonction pour chercher une campagne
                                   obscureText: false,
                                   decoration: const InputDecoration(
                                     labelText: 'Chercher une campagne...',
@@ -174,7 +191,7 @@ class ListCampaignScreenState extends State<ListCampaignScreen> {
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
-                      for (var campagne in campagnes)
+                      for (var campagne in campagnesAffichees)
                         CampaignCard(
                           title: campagne.titre ?? "titre",
                           description: campagne.description ?? "description",
