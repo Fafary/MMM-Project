@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../model/campagne_model.dart';
 import '../model/database.dart';
 
@@ -47,8 +46,8 @@ class ListCampaignScreenState extends State<ListCampaignScreen> {
     setState(() {
       campagnesAffichees = campagnes
           .where((campagne) =>
-            campagne.titre!.toLowerCase().contains(query.toLowerCase()) ||
-            campagne.description!.toLowerCase().contains(query.toLowerCase()))
+      campagne.titre!.toLowerCase().contains(query.toLowerCase()) ||
+          campagne.description!.toLowerCase().contains(query.toLowerCase()))
           .toList();
     });
   }
@@ -71,9 +70,9 @@ class ListCampaignScreenState extends State<ListCampaignScreen> {
       },
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: Colors.white,
+        backgroundColor: const Color(0xFFE5F3E2),
         appBar: AppBar(
-          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+          backgroundColor: const Color(0xFF78AB46),
           automaticallyImplyLeading: false,
           actions: const [],
           centerTitle: false,
@@ -101,7 +100,7 @@ class ListCampaignScreenState extends State<ListCampaignScreen> {
                         color: const Color(0xFFF5F5F5),
                         borderRadius: BorderRadius.circular(40),
                         border: Border.all(
-                          color: const Color(0xFFFF5722),
+                          color: const Color(0xFF78AB46),
                         ),
                       ),
                       child: Padding(
@@ -154,12 +153,13 @@ class ListCampaignScreenState extends State<ListCampaignScreen> {
                     ),
                   ),
                 ),
-                Padding( // Affichage du titre campaign et du bouton create campaign
+                Padding(
+                  // Affichage du titre campaign et du bouton create campaign
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text(
+                      Text(
                         'Campagnes',
                         style: TextStyle(
                           fontFamily: 'Poppins',
@@ -174,7 +174,7 @@ class ListCampaignScreenState extends State<ListCampaignScreen> {
                         },
                         style: ElevatedButton.styleFrom(
                           shape: const CircleBorder(),
-                          backgroundColor: Colors.green,
+                          backgroundColor: const Color(0xFF78AB46),
                           padding: const EdgeInsets.all(10),
                         ),
                         child: const Icon(
