@@ -74,9 +74,37 @@ class ListCampaignScreenState extends State<ListCampaignScreen> {
         appBar: AppBar(
           backgroundColor: const Color(0xFF78AB46),
           automaticallyImplyLeading: false,
-          actions: const [],
-          centerTitle: false,
           elevation: 0,
+          bottom: PreferredSize(
+            preferredSize: const Size.fromHeight(4),
+            child: Container(
+              alignment: Alignment.bottomCenter,
+              padding: const EdgeInsets.only(bottom: 1),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  IconButton(
+                    icon: const Icon(
+                      Icons.settings,
+                      color: Colors.white,
+                    ),
+                    onPressed: () {
+                      // MODIFIER SI AJOUT D'UNE FONCTIONNALITEE PARAMETRE
+                    },
+                  ),
+                  const Text(
+                    'Biodivercity',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(width: 50),
+                ],
+              ),
+            ),
+          ),
         ),
         body: SafeArea(
           top: true,
@@ -122,7 +150,7 @@ class ListCampaignScreenState extends State<ListCampaignScreen> {
                                   onChanged: searchCampagnes, // Appel la fonction pour chercher une campagne
                                   obscureText: false,
                                   decoration: const InputDecoration(
-                                    labelText: 'Chercher une campagne...',
+                                    hintText: 'Chercher une campagne...',
                                     hintStyle: TextStyle(
                                       fontFamily: 'Poppins',
                                       color: Color(0xFF212121),
@@ -159,12 +187,12 @@ class ListCampaignScreenState extends State<ListCampaignScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
+                      const Text(
                         'Campagnes',
                         style: TextStyle(
                           fontFamily: 'Poppins',
                           color: Color(0xFF212121),
-                          fontSize: 30,
+                          fontSize: 24,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
