@@ -2,9 +2,9 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 
-import '../dir_fiche/creation_fiche.dart';
 import '../model/campagne_model.dart';
 import '../model/database.dart';
+import '../model/fiche_model.dart';
 
 class CampaignScreen extends StatefulWidget {
   final Campagne campagne;
@@ -16,21 +16,21 @@ class CampaignScreen extends StatefulWidget {
 }
 
 class CampaignScreenState extends State<CampaignScreen> {
-  List<Campagne> campagnes = [];
+  List<Fiche> fiches = [];
 
   final DatabaseServices databaseServices = DatabaseServices();
 
-  Future<void> fetchCampagnes() async {
-    final campagneList = await databaseServices.getCampagneList();
+  Future<void> fetchFiches(String titre) async {
+    final ficheList = await databaseServices.getFicheList(titre);
     setState(() {
-      campagnes = campagneList;
+      fiches = ficheList;
     });
   }
 
   @override
   void initState() {
     super.initState();
-    fetchCampagnes();
+    fetchFiches(widget.campagne.titre!);
   }
 
   @override
@@ -231,11 +231,9 @@ class CampaignScreenState extends State<CampaignScreen> {
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       children: [
-                        buildCustomListItem('Oiseaux', titre, context),
-                        const SizedBox(height: 10),
-                        buildCustomListItem('Mammifère', titre, context),
-                        const SizedBox(height: 10),
-                        buildCustomListItem('Insectes', titre, context),
+                        for (var fiche in fiches)
+                          buildCustomListItem(fiche, context),
+                          const SizedBox(height: 10),
                       ],
                     ),
                   ),
@@ -244,12 +242,7 @@ class CampaignScreenState extends State<CampaignScreen> {
                     alignment: Alignment.center,
                     child: ElevatedButton(
                       onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => FicheScreen(campagne: widget.campagne),
-                          ),
-                        );
+                        Navigator.of(context).pushNamed('/create_fiche', arguments:widget.campagne);
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.green,
@@ -260,7 +253,7 @@ class CampaignScreenState extends State<CampaignScreen> {
                         style: TextStyle(
                           fontSize: 16,
                           fontFamily: 'Roboto',
-                          color: Colors.white, // Couleur du texte
+                          color: Colors.white,
                         ),
                       ),
                     ),
@@ -275,10 +268,10 @@ class CampaignScreenState extends State<CampaignScreen> {
   }
 }
 
-Widget buildCustomListItem(String title, String titreCampagne, context) {
+Widget buildCustomListItem(Fiche fiche, context) {
   return InkWell(
     onTap: () {
-      Navigator.of(context).pushNamed('/fiche_screen', arguments: titreCampagne);
+      Navigator.of(context).pushNamed('/fiche_screen', arguments: fiche);
     },
     child: Material(
       color: Colors.transparent,
@@ -300,7 +293,7 @@ Widget buildCustomListItem(String title, String titreCampagne, context) {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                title,
+                fiche.observation ?? '',
                 style: const TextStyle(
                   fontFamily: 'Roboto',
                   fontSize: 16,
@@ -319,5 +312,3 @@ Widget buildCustomListItem(String title, String titreCampagne, context) {
     ),
   );
 }
-
-

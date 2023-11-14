@@ -36,13 +36,6 @@ class _MyHomePageState extends State<MyHomePage> {
             const SizedBox(height: 16),
             ElevatedButton(
               onPressed: () {
-                Navigator.of(context).pushNamed('/fiche_screen');
-              },
-              child: const Text('Aller vers ecran fiche'),
-            ),
-            const SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: () {
                 Navigator.of(context).pushNamed('/create_campaign');
               },
               child: const Text("Aller vers ecran création d'une campagne"),

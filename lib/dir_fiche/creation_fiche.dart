@@ -73,7 +73,6 @@ class FicheScreenWidgetState extends State<FicheScreen> {
         backgroundColor: Colors.white,
         appBar: AppBar(
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-          title: const Text('Liste des campagnes'),
           actions: [
             Padding(
               padding: const EdgeInsets.only(right: 16.0),
