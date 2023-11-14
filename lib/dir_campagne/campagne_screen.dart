@@ -42,9 +42,9 @@ class CampaignScreenState extends State<CampaignScreen> {
         }
       },
       child: Scaffold(
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        backgroundColor: const Color(0xFFE5F3E2), // Couleur de fond inspirée de la nature
         appBar: AppBar(
-          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+          backgroundColor: const Color(0xFF78AB46), // Couleur de la barre d'applications
           automaticallyImplyLeading: false,
           leading: IconButton(
             icon: const Icon(
@@ -76,7 +76,7 @@ class CampaignScreenState extends State<CampaignScreen> {
                       width: double.infinity,
                       height: 60,
                       decoration: BoxDecoration(
-                        color: Colors.green,
+                        color: const Color(0xFF78AB46), // Couleur du conteneur du titre
                         borderRadius: BorderRadius.circular(40),
                       ),
                       child: Align(
@@ -244,7 +244,7 @@ class CampaignScreenState extends State<CampaignScreen> {
                         // Navigator.of(context).pushNamed('/create_fiche');
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.green,
+                        backgroundColor: const Color(0xFF78AB46), // Couleur du bouton
                         elevation: 5,
                       ),
                       child: const Text(
@@ -311,5 +311,3 @@ Widget buildCustomListItem(String title, context) {
     ),
   );
 }
-
-

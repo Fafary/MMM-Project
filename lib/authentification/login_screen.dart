@@ -45,7 +45,7 @@ class LoginScreenState extends State<LoginScreen> {
       },
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: const Color(0xFFF5F5F5),
+        backgroundColor: const Color(0xFFE5F3E2), // Couleur de fond inspirée de la nature
         body: SafeArea(
           top: true,
           child: Align(
@@ -109,7 +109,7 @@ class LoginScreenState extends State<LoginScreen> {
                           const Padding(
                             padding: EdgeInsets.symmetric(vertical: 12.0),
                             child: Text(
-                              'Bienvenu sur l\'application Biodivercity App. S\'il vous plaît, veuillez vous connectez ou créer un compte.',
+                              'Bienvenue sur l\'application Biodivercity App. S\'il vous plaît, veuillez vous connecter ou créer un compte.',
                               style: TextStyle(
                                 fontFamily: 'Roboto',
                                 color: Colors.black,
@@ -206,7 +206,8 @@ class LoginScreenState extends State<LoginScreen> {
                                 MaterialPageRoute(
                                   builder: (context) => const ListCampaignScreen(),
                                 ),
-                              );                            },
+                              );
+                            },
                             style: ElevatedButton.styleFrom(
                               minimumSize: const Size(150, 44),
                               backgroundColor: Colors.green,

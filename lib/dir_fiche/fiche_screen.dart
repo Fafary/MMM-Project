@@ -108,7 +108,7 @@ class FicheWidgetState extends State<FicheWidget> {
                         obscureText: false,
                         decoration: InputDecoration(
                           labelText: 'Observation',
-                          hintText: 'Add an observation here...',
+                          hintText: 'Ajoutez une observation...',
                           hintStyle: Theme.of(context).textTheme.bodyMedium,
                           enabledBorder: OutlineInputBorder(
                             borderSide: const BorderSide(
@@ -224,7 +224,7 @@ class FicheWidgetState extends State<FicheWidget> {
                   padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                   child: ElevatedButton(
                     onPressed: () {
-                      log('Button pressed ...');
+                      log('Button appuyer');
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFF25C419),
@@ -234,7 +234,7 @@ class FicheWidgetState extends State<FicheWidget> {
                         borderRadius: BorderRadius.circular(10),
                       ),
                     ),
-                    child: const Text('Submit'),
+                    child: const Text('Soumettre'),
                   ),
                 ),
               ],
