@@ -1,7 +1,5 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
-
 import '../model/campagne_model.dart';
 import '../model/database.dart';
 import '../model/fiche_model.dart';
@@ -45,9 +43,9 @@ class CampaignScreenState extends State<CampaignScreen> {
         }
       },
       child: Scaffold(
-        backgroundColor: const Color(0xFFE5F3E2), // Couleur de fond inspirée de la nature
+        backgroundColor: const Color(0xFFE5F3E2),
         appBar: AppBar(
-          backgroundColor: const Color(0xFF78AB46), // Couleur de la barre d'applications
+          backgroundColor: const Color(0xFF78AB46),
           automaticallyImplyLeading: false,
           leading: IconButton(
             icon: const Icon(
@@ -79,7 +77,7 @@ class CampaignScreenState extends State<CampaignScreen> {
                       width: double.infinity,
                       height: 60,
                       decoration: BoxDecoration(
-                        color: const Color(0xFF78AB46), // Couleur du conteneur du titre
+                        color: const Color(0xFF78AB46),
                         borderRadius: BorderRadius.circular(40),
                       ),
                       child: Align(
@@ -214,6 +212,28 @@ class CampaignScreenState extends State<CampaignScreen> {
                       ),
                     ),
                   ),
+                  const SizedBox(height: 16),
+                  Align(
+                    alignment: Alignment.center,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context).pushNamed('/create_fiche', arguments: widget.campagne);
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFF78AB46),
+                        elevation: 5,
+                      ),
+                      child: const Text(
+                        'Créer une fiche',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontFamily: 'Roboto',
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 16),
                   const Padding(
                     padding: EdgeInsets.fromLTRB(16, 12, 0, 0),
                     child: Text(
@@ -225,37 +245,20 @@ class CampaignScreenState extends State<CampaignScreen> {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 5),
+                  const SizedBox(height: 16),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(16, 0, 0, 0),
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         for (var fiche in fiches)
-                          buildCustomListItem(fiche, context),
-                          const SizedBox(height: 10),
+                          Column(
+                            children: [
+                              const SizedBox(height: 10), // Espace entre les fiches
+                              buildCustomListItem(fiche, context),
+                            ],
+                          ),
                       ],
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  Align(
-                    alignment: Alignment.center,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.of(context).pushNamed('/create_fiche', arguments:widget.campagne);
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF78AB46), // Couleur du bouton
-                        elevation: 5,
-                      ),
-                      child: const Text(
-                        'Créer une fiche',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontFamily: 'Roboto',
-                          color: Colors.white,
-                        ),
-                      ),
                     ),
                   ),
                 ],

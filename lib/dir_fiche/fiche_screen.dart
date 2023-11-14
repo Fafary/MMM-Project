@@ -3,9 +3,10 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:mmm_project/model/fiche_model.dart';
 
 class FicheWidget extends StatefulWidget {
-  const FicheWidget({Key? key}) : super(key: key);
+  const FicheWidget({Key? key, required Fiche fiche}) : super(key: key);
 
   @override
   FicheWidgetState createState() => FicheWidgetState();
