@@ -117,7 +117,7 @@ class CampaignScreenState extends State<CampaignScreen> {
                               ),
                             ),
                             Text(
-                              (widget.campagne.dateDebut as String?) ?? '01/01/2023',
+                              widget.campagne.dateDebut ?? '01/01/2023',
                               style: const TextStyle(
                                 fontFamily: 'Roboto',
                                 color: Colors.black,
@@ -138,7 +138,7 @@ class CampaignScreenState extends State<CampaignScreen> {
                               ),
                             ),
                             Text(
-                              (widget.campagne.dateFin as String?) ?? '01/31/2023',
+                              widget.campagne.dateFin ?? '01/31/2023',
                               style: const TextStyle(
                                 fontFamily: 'Roboto',
                                 color: Colors.black,

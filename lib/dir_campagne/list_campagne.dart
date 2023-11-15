@@ -100,7 +100,7 @@ class ListCampaignScreenState extends State<ListCampaignScreen> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(width: 50),
+                  const SizedBox(width: 50),
                 ],
               ),
             ),

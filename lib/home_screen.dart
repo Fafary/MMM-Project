@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -14,8 +16,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSwatch(
           primarySwatch: Colors.green,
           accentColor: Colors.greenAccent,
-          backgroundColor: const Color(0xFFE5F3E2), // Couleur de fond inspirée de la nature
-          // ... d'autres propriétés selon vos besoins
+          backgroundColor: const Color(0xFFE5F3E2),
         ),
       ),
       initialRoute: '/',
@@ -24,7 +25,6 @@ class MyApp extends StatelessWidget {
         '/login': (context) => const LoginPage(),
         '/list_campaign': (context) => const CampaignListPage(),
         '/create_campaign': (context) => const CreateCampaignPage(),
-        // ... d'autres routes selon votre structure
       },
     );
   }
@@ -87,7 +87,6 @@ class LoginPage extends StatelessWidget {
         backgroundColor: const Color(0xFF78AB46), // Couleur de la barre d'en haut
         title: const Text('Login'),
       ),
-      // ... Autres éléments de la page de connexion
     );
   }
 }
@@ -102,7 +101,6 @@ class CampaignListPage extends StatelessWidget {
         backgroundColor: const Color(0xFF78AB46), // Couleur de la barre d'en haut
         title: const Text('Liste des Campagnes'),
       ),
-      // ... Autres éléments de la page de liste des campagnes
     );
   }
 }
@@ -117,7 +115,6 @@ class CreateCampaignPage extends StatelessWidget {
         backgroundColor: const Color(0xFF78AB46), // Couleur de la barre d'en haut
         title: const Text("Création d'une Campagne"),
       ),
-      // ... Autres éléments de la page de création de campagne
     );
   }
 }

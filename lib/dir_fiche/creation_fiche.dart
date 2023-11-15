@@ -6,7 +6,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:location/location.dart';
 import 'package:intl/intl.dart';
 
-import '../dir_campagne/campagne_screen.dart';
 import '../model/campagne_model.dart';
 import '../model/database.dart';
 import '../model/fiche_model.dart';
@@ -222,6 +221,8 @@ class FicheScreenWidgetState extends State<FicheScreen> {
                   padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
                   child: ElevatedButton(
                     onPressed: () async {
+                      final currentContext = context;
+
                       final formData = {
                         'longitude': longitudeController.text,
                         'latitude': latitudeController.text,
@@ -245,11 +246,8 @@ class FicheScreenWidgetState extends State<FicheScreen> {
                       await databaseServices.updateFicheData(widget.campagne.titre!,fiche);
 
                       log('Button create campaign pressed');
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => CampaignScreen(campagne: widget.campagne),
-                        ),
-                      );
+                      // ignore: use_build_context_synchronously
+                      Navigator.pushNamed(currentContext, '/campagne_screen', arguments: widget.campagne);
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFF78AB46), // Couleur du bouton
@@ -301,7 +299,7 @@ Widget customTextFormField({
         ),
         focusedBorder: OutlineInputBorder(
           borderSide: const BorderSide(
-            color: const Color(0xFF78AB46), // Couleur du texte
+            color: Color(0xFF78AB46), // Couleur du texte
             width: 2,
           ),
           borderRadius: BorderRadius.circular(10),
@@ -399,7 +397,7 @@ class DateTimePickerFormField extends StatelessWidget {
               ),
               focusedBorder: OutlineInputBorder(
                 borderSide: const BorderSide(
-                  color: const Color(0xFF78AB46), // Couleur du texte
+                  color: Color(0xFF78AB46), // Couleur du texte
                   width: 2,
                 ),
                 borderRadius: BorderRadius.circular(10),

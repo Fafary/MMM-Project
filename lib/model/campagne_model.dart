@@ -128,8 +128,8 @@ class CampaignCardState extends State<CampaignCard> {
 
 class Campagne {
   String? titre;
-  DateTime? dateDebut;
-  DateTime? dateFin;
+  String? dateDebut;
+  String? dateFin;
   String? description;
   String? territoire;
   String? groupes;

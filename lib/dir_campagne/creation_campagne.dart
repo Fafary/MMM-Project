@@ -1,11 +1,14 @@
 import 'dart:developer';
 
+import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 
 import '../model/campagne_model.dart';
 import '../model/database.dart';
+
+import 'package:intl/intl.dart';
 
 class CampagneCreation extends StatefulWidget {
   const CampagneCreation({Key? key}) : super(key: key);
@@ -28,6 +31,9 @@ class CampagneCreationState extends State<CampagneCreation> {
 
   final DatabaseServices databaseServices = DatabaseServices();
 
+  DateTime dateDebutController = DateTime.now();
+  DateTime dateFinController = DateTime.now().add(const Duration(days: 1));
+
   @override
   void dispose() {
     titleController.dispose();
@@ -46,8 +52,7 @@ class CampagneCreationState extends State<CampagneCreation> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () =>
-      unfocusNode.canRequestFocus
+      onTap: () => unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(unfocusNode)
           : FocusScope.of(context).unfocus(),
       child: Scaffold(
@@ -85,8 +90,7 @@ class CampagneCreationState extends State<CampagneCreation> {
                   children: [
                     FormBuilderTextField(
                       name: 'title',
-                      validator: FormBuilderValidators.required(
-                          errorText: 'Ce champ est obligatoire'),
+                      validator: FormBuilderValidators.required(errorText: 'Ce champ est obligatoire'),
                       controller: titleController,
                       focusNode: textFieldFocusNode1,
                       obscureText: false,
@@ -125,8 +129,7 @@ class CampagneCreationState extends State<CampagneCreation> {
                       padding: const EdgeInsets.fromLTRB(0, 16, 0, 0),
                       child: FormBuilderTextField(
                         name: 'description',
-                        validator: FormBuilderValidators.required(
-                            errorText: 'Ce champ est obligatoire'),
+                        validator: FormBuilderValidators.required(errorText: 'Ce champ est obligatoire'),
                         controller: descriptionController,
                         focusNode: textFieldFocusNode2,
                         obscureText: false,
@@ -163,80 +166,27 @@ class CampagneCreationState extends State<CampagneCreation> {
                     ),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(0, 16, 0, 0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      child: Column(
                         children: [
-                          Container(
-                            width: MediaQuery.of(context).size.width * 0.44,
-                            height: 50,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8),
-                              border: Border.all(
-                                color: Colors.black,
-                                width: 2,
-                              ),
-                            ),
-                            child: const Padding(
-                              padding: EdgeInsets.fromLTRB(12, 5, 12, 5),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    'Date de début',
-                                    style: TextStyle(
-                                      fontFamily: 'Outfit',
-                                      color: Colors.black,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                  Icon(
-                                    Icons.date_range_outlined,
-                                    color: Colors.black,
-                                    size: 24,
-                                  ),
-                                ],
-                              ),
-                            ),
+
+                          const Text('Début de la campagne'),
+                          BasicDateField(
+                            onDateChanged: (selectedDate) {
+                              setState(() {
+                                dateDebutController = selectedDate ?? DateTime.now();
+                              });
+                            },
+                            customFirstDate: DateTime.now(),
                           ),
-                          Container(
-                              width: MediaQuery
-                                  .of(context)
-                                  .size
-                                  .width * 0.44,
-                              height: 50,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(8),
-                                border: Border.all(
-                                  color: Colors.black,
-                                  width: 2,
-                                ),
-                              ),
-                              child: const Padding(
-                                padding: EdgeInsets.fromLTRB(12, 5, 12, 5),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      'Date de fin',
-                                      style: TextStyle(
-                                        fontFamily: 'Outfit',
-                                        color: Colors.black,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                    Icon(
-                                      Icons.date_range_outlined,
-                                      color: Colors.black,
-                                      size: 24,
-                                    ),
-                                  ],
-                                ),
-                              )
+                          const SizedBox(height: 16), // Adjust the spacing as needed
+                          const Text('Fin de la campagne'),
+                          BasicDateField(
+                            onDateChanged: (selectedDate) {
+                              setState(() {
+                                dateFinController = selectedDate ?? DateTime.now();
+                              });
+                            },
+                            customFirstDate: dateDebutController.add(const Duration(days: 1)),
                           ),
                         ],
                       ),
@@ -245,8 +195,7 @@ class CampagneCreationState extends State<CampagneCreation> {
                       padding: const EdgeInsets.fromLTRB(0, 16, 0, 0),
                       child: FormBuilderTextField(
                         name: 'nameTerritory',
-                        validator: FormBuilderValidators.required(
-                            errorText: 'Ce champ est obligatoire'),
+                        validator: FormBuilderValidators.required(errorText: 'Ce champ est obligatoire'),
                         controller: territoireController,
                         focusNode: textFieldFocusNode3,
                         obscureText: false,
@@ -288,8 +237,7 @@ class CampagneCreationState extends State<CampagneCreation> {
                         name: 'groupName',
                         controller: groupesController,
                         focusNode: textFieldFocusNode4,
-                        validator: FormBuilderValidators.required(
-                            errorText: 'Ce champ est obligatoire'),
+                        validator: FormBuilderValidators.required(errorText: 'Ce champ est obligatoire'),
                         decoration: InputDecoration(
                           labelText: ' Groupes Taxonomic',
                           hintText: 'Entrer des groupes taxonomic à identifier',
@@ -332,8 +280,8 @@ class CampagneCreationState extends State<CampagneCreation> {
 
                       final formData = {
                         'titre': titleController.text,
-                        //'dateDebut': dateDebutController.text,
-                        //'dateFin':dateFinController.text,
+                        'dateDebut': dateDebutController.toLocal().toString(),
+                        'dateFin': dateFinController.toLocal().toString(),
                         'description': descriptionController.text,
                         'territoire': territoireController.text,
                         'groupes': groupesController.text,
@@ -342,8 +290,8 @@ class CampagneCreationState extends State<CampagneCreation> {
                       // Créer un objet Campagne à partir des valeurs du formulaire
                       final campagne = Campagne(
                         titre: formData['titre'],
-                        //dateDebut: formData['dateDebut'],
-                        //dateFin: formData['dateFin'],
+                        dateDebut: formData['dateDebut'],
+                        dateFin: formData['dateFin'],
                         description: formData['description'],
                         territoire: formData['territoire'],
                         groupes: formData['groupes'],
@@ -387,3 +335,36 @@ class CampagneCreationState extends State<CampagneCreation> {
     );
   }
 }
+
+class BasicDateField extends StatelessWidget {
+  final DateFormat format = DateFormat("yyyy-MM-dd");
+  final void Function(DateTime?) onDateChanged;
+  final DateTime customFirstDate;
+
+  BasicDateField({
+    Key? key,
+    required this.onDateChanged,
+    required this.customFirstDate,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        DateTimeField(
+          format: format,
+          onShowPicker: (context, currentValue) {
+            return showDatePicker(
+              context: context,
+              firstDate: customFirstDate,
+              initialDate: currentValue ?? customFirstDate,
+              lastDate: DateTime(2100),
+            );
+          },
+          onChanged: onDateChanged,
+        ),
+      ],
+    );
+  }
+}
+

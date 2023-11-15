@@ -74,7 +74,7 @@ class FicheWidgetState extends State<FicheWidget> {
                 Padding(
                   padding: const EdgeInsets.only(right: 16),
                   child: Container(
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: Colors.white, // Couleur du conteneur
                     ),
                     child: Padding(
@@ -98,7 +98,7 @@ class FicheWidgetState extends State<FicheWidget> {
                 Padding(
                   padding: const EdgeInsets.only(right: 16),
                   child: Container(
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: Colors.white, // Couleur du conteneur
                     ),
                     child: Padding(
@@ -150,7 +150,7 @@ class FicheWidgetState extends State<FicheWidget> {
                 Padding(
                   padding: const EdgeInsets.only(right: 16),
                   child: Container(
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: Colors.white, // Couleur du conteneur
                     ),
                     child: Padding(
