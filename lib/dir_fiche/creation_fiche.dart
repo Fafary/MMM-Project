@@ -68,7 +68,7 @@ class FicheScreenWidgetState extends State<FicheScreen> {
           : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: Colors.white,
+        backgroundColor: Color(0xFFE5F3E2),
         appBar: AppBar(
           backgroundColor: const Color(0xFF78AB46), // Couleur de la barre d'en-tête
           actions: [
@@ -212,7 +212,7 @@ class FicheScreenWidgetState extends State<FicheScreen> {
                       style: TextStyle(
                         fontSize: 16,
                         fontFamily: 'Outfit',
-                        color: Colors.white,
+                        color: Color(0xFFE5F3E2),
                       ),
                     ),
                   ),
@@ -261,7 +261,7 @@ class FicheScreenWidgetState extends State<FicheScreen> {
                       style: TextStyle(
                         fontSize: 16,
                         fontFamily: 'Outfit',
-                        color: Colors.white,
+                        color: Color(0xFFE5F3E2),
                       ),
                     ),
                   ),

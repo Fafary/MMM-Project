@@ -56,7 +56,7 @@ class FicheWidgetState extends State<FicheWidget> {
       },
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: Colors.white, // Couleur de fond
+        backgroundColor: const Color(0xFFE5F3E2),
         appBar: AppBar(
           backgroundColor: const Color(0xFF78AB46), // Couleur de la barre d'en-tête
           automaticallyImplyLeading: false,
@@ -75,7 +75,7 @@ class FicheWidgetState extends State<FicheWidget> {
                   padding: const EdgeInsets.only(right: 16),
                   child: Container(
                     decoration: const BoxDecoration(
-                      color: Colors.white, // Couleur du conteneur
+                      color: Color(0xFFE5F3E2),
                     ),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -99,7 +99,7 @@ class FicheWidgetState extends State<FicheWidget> {
                   padding: const EdgeInsets.only(right: 16),
                   child: Container(
                     decoration: const BoxDecoration(
-                      color: Colors.white, // Couleur du conteneur
+                      color: Color(0xFFE5F3E2),
                     ),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
@@ -109,7 +109,7 @@ class FicheWidgetState extends State<FicheWidget> {
                         obscureText: false,
                         decoration: InputDecoration(
                           labelText: 'Observation',
-                          hintText: 'Add an observation here...',
+                          hintText: 'Ajouter une observation',
                           hintStyle: Theme.of(context).textTheme.bodyMedium,
                           enabledBorder: OutlineInputBorder(
                             borderSide: const BorderSide(
@@ -151,8 +151,7 @@ class FicheWidgetState extends State<FicheWidget> {
                   padding: const EdgeInsets.only(right: 16),
                   child: Container(
                     decoration: const BoxDecoration(
-                      color: Colors.white, // Couleur du conteneur
-                    ),
+                      color: Color(0xFFE5F3E2),                    ),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                       child: Text(

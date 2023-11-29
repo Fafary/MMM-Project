@@ -78,7 +78,7 @@ class CampagneCreationState extends State<CampagneCreation> {
             ),
           ],
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: const Color(0xFFE5F3E2),
         body: SafeArea(
           top: true,
           child: Padding(
