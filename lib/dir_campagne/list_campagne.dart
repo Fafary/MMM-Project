@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../model/campagne_model.dart';
 import '../model/database.dart';
 import '../model/user_model.dart';
+import 'campagne_card.dart';
 
 class ListCampaignScreen extends StatefulWidget {
   final UserDatabase user;
@@ -230,6 +231,7 @@ class ListCampaignScreenState extends State<ListCampaignScreen> {
                           title: campagne.titre ?? "titre",
                           description: campagne.description ?? "description",
                           campagne: campagne,
+                          user: widget.user,
                         ),
                     ],
                   ),
