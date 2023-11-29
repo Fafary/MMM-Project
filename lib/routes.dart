@@ -10,21 +10,24 @@ import 'model/campagne_model.dart';
 import 'model/fiche_model.dart';
 import 'model/user_model.dart';
 
+const argUser = null;
+
 final Map<String, WidgetBuilder> routes = {
   '/login': (BuildContext context) => const LoginScreen(),
   '/list_campaign': (BuildContext context) {
-    final args = ModalRoute
+    final argUser = ModalRoute
         .of(context)!
         .settings
         .arguments as UserDatabase;
-    return ListCampaignScreen(user: args);
+    return ListCampaignScreen(user: argUser);
   },
   '/campagne_screen': (BuildContext context) {
     final args = ModalRoute
         .of(context)!
         .settings
         .arguments as Campagne;
-    return CampaignScreen(campagne: args);
+
+    return CampaignScreen(campagne: args, user: argUser);
   },
   '/create_campaign': (BuildContext context) {
     final args = ModalRoute

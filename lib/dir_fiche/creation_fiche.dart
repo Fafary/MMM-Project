@@ -38,6 +38,9 @@ class FicheScreenWidgetState extends State<FicheScreen> {
   TextEditingController observationController = TextEditingController();
   FocusNode textFieldFocusNode4 = FocusNode();
 
+  TextEditingController nomCreateurController = TextEditingController();
+  FocusNode textFieldFocusNode5 = FocusNode();
+
   final unfocusNode = FocusNode();
 
   final DatabaseServices databaseServices = DatabaseServices();
@@ -53,10 +56,12 @@ class FicheScreenWidgetState extends State<FicheScreen> {
     dateHeureController.dispose();
     localisationController.dispose();
     observationController.dispose();
+    nomCreateurController.dispose();
     textFieldFocusNode1.dispose();
     textFieldFocusNode2.dispose();
     textFieldFocusNode3.dispose();
     textFieldFocusNode4.dispose();
+    textFieldFocusNode5.dispose();
     unfocusNode.dispose();
   }
 
@@ -93,6 +98,12 @@ class FicheScreenWidgetState extends State<FicheScreen> {
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
+                customTextFormField(
+                  controller: nomCreateurController,
+                  focusNode: textFieldFocusNode5,
+                  labelText: 'Nom',
+                  hintText: 'Entrez votre nom ou pseudo pour garder votre fiche',
+                ),
                 Padding(
                   padding: const EdgeInsetsDirectional.fromSTEB(16, 16, 16, 16),
                   child: Row(
@@ -230,6 +241,7 @@ class FicheScreenWidgetState extends State<FicheScreen> {
                         'heure': heureController.text,
                         'localisation':localisationController.text,
                         'observation':observationController.text,
+                        'nomCreateur': nomCreateurController.text,
                       };
 
                       // Créer un objet Fiche à partir des valeurs du formulaire
@@ -240,6 +252,7 @@ class FicheScreenWidgetState extends State<FicheScreen> {
                         heure: formData['heure'],
                         lieu: formData['localisation'],
                         observation: formData['observation'],
+                        nomCreateur: formData['nomCreateur'],
                       );
 
                       // Envoyer ou utiliser l'objet chantier en l'envoyant à Firebase

@@ -9,6 +9,7 @@ class Fiche {
   String? lieu;
   String? photos;
   String? observation;
+  String? nomCreateur;
 
   Fiche({
     this.id,
@@ -18,7 +19,8 @@ class Fiche {
     this.heure,
     this.lieu,
     this.photos,
-    this.observation
+    this.observation,
+    this.nomCreateur
   });
 
   factory Fiche.fromFirestore(
@@ -33,7 +35,8 @@ class Fiche {
       heure: data?['heure'],
       lieu: data?['lieu'],
       photos: data?['photos'],
-      observation: data?['observation']
+      observation: data?['observation'],
+      nomCreateur: data?['nomCreateur']
     );
   }
 
@@ -46,7 +49,8 @@ class Fiche {
       if (heure != null) "heure": heure,
       if (lieu != null) "lieu": lieu,
       if (photos != null) "photos": photos,
-      if (observation != null) "observation": observation
+      if (observation != null) "observation": observation,
+      if (nomCreateur != null) "nomCreateur": nomCreateur
     };
   }
 

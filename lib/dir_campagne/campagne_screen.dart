@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import '../model/campagne_model.dart';
 import '../model/database.dart';
 import '../model/fiche_model.dart';
+import '../model/user_model.dart';
 
 class CampaignScreen extends StatefulWidget {
   final Campagne campagne;
+  final UserDatabase user;
 
-  const CampaignScreen({Key? key, required this.campagne}) : super(key: key);
+  const CampaignScreen({Key? key, required this.campagne, required this.user}) : super(key: key);
 
   @override
   CampaignScreenState createState() => CampaignScreenState();
@@ -55,7 +57,7 @@ class CampaignScreenState extends State<CampaignScreen> {
             color: Colors.black,
             onPressed: () {
               log('IconButton pressed retour');
-              Navigator.of(context).pushNamed('/list_campaign');
+              Navigator.of(context).pop();
             },
           ),
           actions: const [],
