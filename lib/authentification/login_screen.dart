@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mmm_project/authentification/signup_screen.dart';
-import 'package:mmm_project/dir_campagne/list_campagne.dart';
+
+import '../model/database.dart';
+import '../model/user_model.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -16,6 +18,8 @@ class LoginScreenState extends State<LoginScreen> {
   late FocusNode emailFocusNode;
   late FocusNode passwordFocusNode;
   bool passwordVisible = false;
+  late UserDatabase user;
+  final DatabaseServices databaseServices = DatabaseServices();
 
   @override
   void initState() {
@@ -48,41 +52,40 @@ class LoginScreenState extends State<LoginScreen> {
         backgroundColor: const Color(0xFFE5F3E2), // Couleur de fond inspirée de la nature
         body: SafeArea(
           top: true,
-          child: Align(
-            alignment: Alignment.center,
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 32.0),
-                  child: Container(
-                    width: double.infinity,
-                    height: 70,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    alignment: Alignment.center,
-                    child: const Text(
-                      'Biodivercity App',
-                      style: TextStyle(
-                        fontFamily: 'Roboto',
-                        color: Colors.black,
-                        fontSize: 34,
-                        fontWeight: FontWeight.bold,
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10.0),
+                    child: Container(
+                      width: double.infinity,
+                      height: 70,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      alignment: Alignment.center,
+                      child: const Text(
+                        'Biodivercity App',
+                        style: TextStyle(
+                          fontFamily: 'Roboto',
+                          color: Colors.black,
+                          fontSize: 34,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ),
-                ),
-                Image.asset(
-                  './images/logo_ofb.png',
-                  height: 75,
-                  fit: BoxFit.contain,
-                ),
-                const SizedBox(height: 30.0),
-                Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: Container(
+                  Image.asset(
+                    './images/logo_ofb.png',
+                    height: 75,
+                    fit: BoxFit.contain,
+                  ),
+                  const SizedBox(height: 30.0),
+                  Container(
                     width: double.infinity,
                     decoration: BoxDecoration(
                       color: const Color(0xFFF5F5F5),
@@ -200,13 +203,10 @@ class LoginScreenState extends State<LoginScreen> {
                           ),
                           const SizedBox(height: 16.0),
                           ElevatedButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const ListCampaignScreen(),
-                                ),
-                              );
+                            onPressed: () async {
+                              user = await databaseServices.getUser(emailController.text);
+                              // ignore: use_build_context_synchronously
+                              Navigator.of(context).pushNamed('/list_campaign', arguments: user);
                             },
                             style: ElevatedButton.styleFrom(
                               minimumSize: const Size(150, 44),
@@ -218,6 +218,29 @@ class LoginScreenState extends State<LoginScreen> {
                             ),
                             child: const Text(
                               'Login',
+                              style: TextStyle(
+                                fontFamily: 'Roboto',
+                                color: Colors.white,
+                                fontSize: 14,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 20),
+                          ElevatedButton(
+                            onPressed: () {
+                              emailController.text = 'test.test@gmail.com';
+                              passwordController.text = 'testtest';
+                            },
+                            style: ElevatedButton.styleFrom(
+                              minimumSize: const Size(150, 44),
+                              backgroundColor: Colors.blue,
+                              elevation: 3,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(40),
+                              ),
+                            ),
+                            child: const Text(
+                              'Fill Test Values',
                               style: TextStyle(
                                 fontFamily: 'Roboto',
                                 color: Colors.white,
@@ -261,8 +284,8 @@ class LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

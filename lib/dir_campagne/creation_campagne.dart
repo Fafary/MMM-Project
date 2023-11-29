@@ -5,13 +5,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 
+import '../model/user_model.dart';
 import '../model/campagne_model.dart';
 import '../model/database.dart';
 
 import 'package:intl/intl.dart';
 
 class CampagneCreation extends StatefulWidget {
-  const CampagneCreation({Key? key}) : super(key: key);
+  final UserDatabase user;
+  const CampagneCreation({Key? key, required this.user}) : super(key: key);
 
   @override
   CampagneCreationState createState() => CampagneCreationState();
@@ -301,8 +303,9 @@ class CampagneCreationState extends State<CampagneCreation> {
                       await databaseServices.updateCampagneData(campagne);
 
                       log('Button create campaign pressed');
+
                       // ignore: use_build_context_synchronously
-                      Navigator.pushNamed(currentContext, '/list_campaign');
+                      Navigator.of(currentContext).pushNamed('/create_fiche', arguments: widget.user);
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.green,

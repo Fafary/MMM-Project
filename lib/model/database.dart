@@ -2,18 +2,51 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import 'user_model.dart';
 import 'campagne_model.dart';
 import 'fiche_model.dart';
 
 class DatabaseServices {
   static final doc = FirebaseFirestore.instance;
 
-  final docRefCampagne = doc
-      .collection("Campagne")
-      .withConverter(
+  final docRefCampagne = doc.collection("Campagne").withConverter(
     fromFirestore: Campagne.fromFirestore,
     toFirestore: (Campagne campagne, options) => campagne.toFirestore(),
   );
+
+  Future<UserDatabase> getUser(String mail) async {
+    try {
+      final snapshot = await doc.collection("User").doc(mail).get();
+
+      // Check if the snapshot exists
+      if (snapshot.exists) {
+        return UserDatabase.fromFirestore(snapshot, null);
+      } else {
+        throw Exception("User not found for email: $mail");
+      }
+    } catch (e) {
+      log("Error fetching user: $e");
+      throw Exception("Error fetching user for email: $mail");
+    }
+  }
+
+  void upgradeUserToOrganisateur(String docmail) async {
+    try {
+      DocumentReference userDoc = FirebaseFirestore.instance.collection('User')
+          .doc(docmail);
+
+      var docSnapshot = await userDoc.get();
+
+      if (docSnapshot.exists) {
+        await userDoc.update({'isOrganisateur': true});
+        log('User upgraded to Organisateur');
+      } else {
+        log('Document not found for mail: $docmail');
+      }
+    } catch (error) {
+      log('Failed to upgrade user: $error');
+    }
+  }
 
   ///updates the data of the item of same titre as [campagne], if the titre doesn't
   ///exist in the database, the item is created.
@@ -69,24 +102,6 @@ class DatabaseServices {
     return res.count;
   }
 
-  ///returns wether the user of id [uid] is in the document stated in [document].
-  Future<bool> getUserState(String uid, String document) async {
-    final userSnapshot = await doc.collection(document).doc(uid).get();
-    return userSnapshot.exists;
-  }
-
-  /// returns the string located in the field [dataField] of user of id [uid].
-  /// Search if the user is a superuser
-  Future<String> boolSuperUser(String uid, String dataField) async {
-    if (await getUserState(uid, "superuser")){
-      final userSnapshot = await doc.collection("User").doc(uid).get();
-      return userSnapshot.get(dataField);
-    }
-    else {
-      throw ("couldn't find user");
-    }
-  }
-
   ///removes [fiche] from "Fiche"
   Future<void> deleteFiche(String titre, Fiche fiche) async{
     try {
@@ -100,8 +115,9 @@ class DatabaseServices {
   Future<List<DocumentSnapshot>> getFichesPerso(String id) async {
     CollectionReference fichesCollection = FirebaseFirestore.instance.collection('Fiche');
 
-    QuerySnapshot fiches = await fichesCollection.where(id).get();
+    QuerySnapshot fiches = await fichesCollection.where('userId', isEqualTo: id).get();
 
     return fiches.docs;
   }
+
 }

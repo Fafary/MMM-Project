@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+
 import '../model/campagne_model.dart';
 import '../model/database.dart';
+import '../model/user_model.dart';
 
 class ListCampaignScreen extends StatefulWidget {
-  const ListCampaignScreen({Key? key}) : super(key: key);
+  final UserDatabase user;
+  const ListCampaignScreen({Key? key, required this.user}) : super(key: key);
 
   @override
   ListCampaignScreenState createState() => ListCampaignScreenState();
@@ -83,15 +86,7 @@ class ListCampaignScreenState extends State<ListCampaignScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  IconButton(
-                    icon: const Icon(
-                      Icons.settings,
-                      color: Colors.white,
-                    ),
-                    onPressed: () {
-                      // MODIFIER SI AJOUT D'UNE FONCTIONNALITEE PARAMETRE
-                    },
-                  ),
+                  const SizedBox(width: 50),
                   const Text(
                     'Biodivercity',
                     style: TextStyle(
@@ -100,7 +95,15 @@ class ListCampaignScreenState extends State<ListCampaignScreen> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  const SizedBox(width: 50),
+                  IconButton(
+                    icon: const Icon(
+                      Icons.settings,
+                      color: Colors.white,
+                    ),
+                    onPressed: () {
+                      showSettingsMenu(context);
+                    },
+                  ),
                 ],
               ),
             ),
@@ -114,7 +117,8 @@ class ListCampaignScreenState extends State<ListCampaignScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 16, vertical: 16),
                   child: Material(
                     color: Colors.transparent,
                     elevation: 3,
@@ -147,7 +151,7 @@ class ListCampaignScreenState extends State<ListCampaignScreen> {
                                 child: TextFormField(
                                   controller: textController,
                                   focusNode: textFieldFocusNode,
-                                  onChanged: searchCampagnes, // Appel la fonction pour chercher une campagne
+                                  onChanged: searchCampagnes,
                                   obscureText: false,
                                   decoration: const InputDecoration(
                                     hintText: 'Chercher une campagne...',
@@ -182,7 +186,6 @@ class ListCampaignScreenState extends State<ListCampaignScreen> {
                   ),
                 ),
                 Padding(
-                  // Affichage du titre campaign et du bouton create campaign
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -196,19 +199,22 @@ class ListCampaignScreenState extends State<ListCampaignScreen> {
                           fontWeight: FontWeight.w500,
                         ),
                       ),
-                      ElevatedButton(
-                        onPressed: () {
-                          Navigator.of(context).pushNamed('/create_campaign');
-                        },
-                        style: ElevatedButton.styleFrom(
-                          shape: const CircleBorder(),
-                          backgroundColor: const Color(0xFF78AB46),
-                          padding: const EdgeInsets.all(10),
-                        ),
-                        child: const Icon(
-                          Icons.add, // Icône de croix
-                          color: Colors.white, // Couleur de l'icône
-                          size: 24,
+                      Visibility(
+                        visible: widget.user.isOrganisateur == true,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            Navigator.of(context).pushNamed('/create_campaign');
+                          },
+                          style: ElevatedButton.styleFrom(
+                            shape: const CircleBorder(),
+                            backgroundColor: const Color(0xFF78AB46),
+                            padding: const EdgeInsets.all(10),
+                          ),
+                          child: const Icon(
+                            Icons.add,
+                            color: Colors.white,
+                            size: 24,
+                          ),
                         ),
                       ),
                     ],
@@ -235,4 +241,66 @@ class ListCampaignScreenState extends State<ListCampaignScreen> {
       ),
     );
   }
+
+  void showSettingsMenu(BuildContext context) async {
+    List<PopupMenuEntry<String>> menuItems = [];
+
+    if (!widget.user.isOrganisateur) {
+      menuItems.add(
+        const PopupMenuItem(
+          value: 'option 1',
+          child: Text('Passer administrateur'),
+        ),
+      );
+    }
+
+    menuItems.add(
+      const PopupMenuItem(
+        value: 'option 2',
+        child: Text('Devenir un Ours'),
+      ),
+    );
+
+    await showMenu(
+      context: context,
+      position: const RelativeRect.fromLTRB(110.0, 60.0, 0.0, 0.0),
+      items: menuItems,
+      elevation: 8.0,
+    ).then((value) {
+      if (value != null) {
+        handleMenuItemSelection(value);
+      }
+    });
+  }
+
+  void handleMenuItemSelection(String value) {
+    switch (value) {
+      case 'option 1':
+        showUpgradeDialog();
+        break;
+      case 'option 2':
+        break;
+    }
+  }
+
+  void showUpgradeDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text("Passer Organisateur"),
+          content: ElevatedButton(
+            onPressed: () {
+              String mail = widget.user.mail;
+              databaseServices.upgradeUserToOrganisateur(mail);
+
+              Navigator.of(context).pop();
+            },
+            child: const Text("Acheter pour 9.99 €"),
+          ),
+        );
+      },
+    );
+  }
+
 }

@@ -5,15 +5,20 @@ import 'dir_campagne/creation_campagne.dart';
 import 'dir_campagne/list_campagne.dart';
 import 'dir_fiche/creation_fiche.dart';
 import 'dir_fiche/fiche_screen.dart';
-import 'home_screen.dart';
 import 'authentification/login_screen.dart';
 import 'model/campagne_model.dart';
 import 'model/fiche_model.dart';
+import 'model/user_model.dart';
 
 final Map<String, WidgetBuilder> routes = {
-  '/': (BuildContext context) => const MyHomePage(),
   '/login': (BuildContext context) => const LoginScreen(),
-  '/list_campaign': (BuildContext context) => const ListCampaignScreen(),
+  '/list_campaign': (BuildContext context) {
+    final args = ModalRoute
+        .of(context)!
+        .settings
+        .arguments as UserDatabase;
+    return ListCampaignScreen(user: args);
+  },
   '/campagne_screen': (BuildContext context) {
     final args = ModalRoute
         .of(context)!
@@ -21,7 +26,13 @@ final Map<String, WidgetBuilder> routes = {
         .arguments as Campagne;
     return CampaignScreen(campagne: args);
   },
-  '/create_campaign': (BuildContext context) => const CampagneCreation(),
+  '/create_campaign': (BuildContext context) {
+    final args = ModalRoute
+        .of(context)!
+        .settings
+        .arguments as UserDatabase;
+    return CampagneCreation(user: args);
+  },
   '/fiche_screen': (BuildContext context) {
     final args = ModalRoute
         .of(context)!

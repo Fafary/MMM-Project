@@ -2,7 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:mmm_project/dir_campagne/list_campagne.dart';
+
+import '../model/database.dart';
+import '../model/user_model.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
@@ -17,6 +19,8 @@ class SignupScreenState extends State<SignupScreen> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final DatabaseServices databaseServices = DatabaseServices();
+  late UserDatabase user;
 
   String errorMessage = '';
 
@@ -67,19 +71,18 @@ class SignupScreenState extends State<SignupScreen> {
                     FirebaseAuth.instance.createUserWithEmailAndPassword(
                       email: email,
                       password: password,
-                    ).then((userCredential) {
-                      // Store the user in the appropriate collection based on their role.
-                      FirebaseFirestore.instance.collection('User').doc('$nom $prenom').set({
+                    ).then((userCredential) async {
+                      await FirebaseFirestore.instance.collection('User').doc(email).set({
                         'Nom': nom,
                         'Prénom': prenom,
                         'e-mail': email,
+                        'isOrganisateur': false
                       });
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const ListCampaignScreen(),
-                        ),
-                      );
+
+                      user = await databaseServices.getUser(email);
+
+                      // ignore: use_build_context_synchronously
+                      Navigator.of(context).pushNamed('/list_campaign', arguments: user);
                     }).catchError((e) {
                       if (e is FirebaseAuthException) {
                         setState(() {
