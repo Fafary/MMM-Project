@@ -9,6 +9,7 @@ import 'authentification/login_screen.dart';
 import 'model/campagne_model.dart';
 import 'model/fiche_model.dart';
 import 'model/user_model.dart';
+import 'model/map.dart';
 
 const argUser = null;
 
@@ -49,5 +50,9 @@ final Map<String, WidgetBuilder> routes = {
         .settings
         .arguments as Campagne;
     return FicheScreen(campagne: args, user: argUser);
-  }
+  },
+  '/map': (BuildContext context) {
+    final args = ModalRoute.of(context)!.settings.arguments as Campagne;
+    return MapScreen(campagne: args);
+  },
 };

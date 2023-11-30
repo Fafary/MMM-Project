@@ -10,8 +10,13 @@ class CampaignCard extends StatefulWidget {
   final UserDatabase user;
   final Campagne campagne;
 
-  const CampaignCard({Key? key, required this.title, required this.description,
-    required this.user, required this.campagne}) : super(key: key);
+  const CampaignCard({
+    Key? key,
+    required this.title,
+    required this.description,
+    required this.user,
+    required this.campagne,
+  }) : super(key: key);
 
   @override
   CampaignCardState createState() => CampaignCardState();
@@ -39,7 +44,10 @@ class CampaignCardState extends State<CampaignCard> {
           onTap: () {
             Navigator.of(context).push(
               MaterialPageRoute(
-                builder: (context) => CampaignScreen(campagne: widget.campagne, user :widget.user),
+                builder: (context) => CampaignScreen(
+                  campagne: widget.campagne,
+                  user: widget.user,
+                ),
               ),
             );
           },
@@ -54,8 +62,8 @@ class CampaignCardState extends State<CampaignCard> {
               ),
               boxShadow: [
                 BoxShadow(
-                  color: isHovered ? Colors.green : Colors.grey, // Couleur de l'ombre en vert lors du survol
-                  offset: const Offset(2, 2), // Décalage vers le bas et vers la droite
+                  color: isHovered ? Colors.green : Colors.grey,
+                  offset: const Offset(2, 2),
                   blurRadius: 5,
                   spreadRadius: 2,
                 ),
@@ -114,6 +122,12 @@ class CampaignCardState extends State<CampaignCard> {
                             ),
                           ),
                         ),
+                        ElevatedButton(
+                          onPressed: () {
+                            navigateToMapScreen(widget.campagne);
+                          },
+                          child: const Text('Voir la carte'),
+                        ),
                       ],
                     ),
                   ),
@@ -124,5 +138,9 @@ class CampaignCardState extends State<CampaignCard> {
         ),
       ),
     );
+  }
+
+  void navigateToMapScreen(Campagne campagne) {
+    Navigator.of(context).pushNamed('/map', arguments: campagne);
   }
 }
