@@ -59,7 +59,12 @@ class FicheWidgetState extends State<FicheWidget> {
         backgroundColor: const Color(0xFFE5F3E2),
         appBar: AppBar(
           backgroundColor: const Color(0xFF78AB46), // Couleur de la barre d'en-tête
-          automaticallyImplyLeading: false,
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
           actions: const [],
           centerTitle: false,
           elevation: 0,
