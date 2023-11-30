@@ -204,7 +204,7 @@ class ListCampaignScreenState extends State<ListCampaignScreen> {
                         visible: widget.user.isOrganisateur == true,
                         child: ElevatedButton(
                           onPressed: () {
-                            Navigator.of(context).pushNamed('/create_campaign');
+                            Navigator.of(context).pushNamed('/create_campaign', arguments: widget.user);
                           },
                           style: ElevatedButton.styleFrom(
                             shape: const CircleBorder(),

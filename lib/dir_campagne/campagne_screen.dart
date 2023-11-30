@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
+import '../dir_fiche/creation_fiche.dart';
 import '../model/campagne_model.dart';
 import '../model/database.dart';
 import '../model/fiche_model.dart';
@@ -17,20 +18,27 @@ class CampaignScreen extends StatefulWidget {
 
 class CampaignScreenState extends State<CampaignScreen> {
   List<Fiche> fiches = [];
+  List<Fiche> user_fiches = [];
+
+  bool showAllFiches = true; //savoir si l'on veut afficher toutes les fiches
 
   final DatabaseServices databaseServices = DatabaseServices();
 
   Future<void> fetchFiches(String titre) async {
     final ficheList = await databaseServices.getFicheList(titre);
+    final userFiches = ficheList.where((fiche) => fiche.nomCreateur == widget.user.nom).toList();
     setState(() {
       fiches = ficheList;
+      user_fiches = userFiches;
     });
   }
 
   @override
   void initState() {
     super.initState();
-    fetchFiches(widget.campagne.titre!);
+    if (widget.campagne.titre != null) {
+      fetchFiches(widget.campagne.titre!);
+    }
   }
 
   @override
@@ -219,7 +227,11 @@ class CampaignScreenState extends State<CampaignScreen> {
                     alignment: Alignment.center,
                     child: ElevatedButton(
                       onPressed: () {
-                        Navigator.of(context).pushNamed('/create_fiche', arguments: widget.campagne);
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => FicheScreen(campagne: widget.campagne, user :widget.user),
+                          ),
+                        );
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFF78AB46),
@@ -236,24 +248,70 @@ class CampaignScreenState extends State<CampaignScreen> {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  const Padding(
-                    padding: EdgeInsets.fromLTRB(16, 12, 0, 0),
-                    child: Text(
-                      'Fiches',
-                      style: TextStyle(
-                        fontFamily: 'Roboto',
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
+
+                  // Affichage des fiches en fonction de l'option choisi (Toutes les fiches, fiches personnelles ou fiches abonnées)
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      const Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.fromLTRB(16, 12, 0, 0),
+                            child: Text(
+                              'Fiches',
+                              style: TextStyle(
+                                fontFamily: 'Roboto',
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
+                      const SizedBox(width: 16),
+                      ElevatedButton(
+                        onPressed: () {
+                          setState(() {
+                            showAllFiches = true;
+                            fetchFiches(widget.campagne.titre!);
+                          });
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: showAllFiches ? Colors.green : Colors.grey,
+                        ),
+                        child: const Text(
+                          'Toutes les fiches',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                      const SizedBox(width: 16),
+                      ElevatedButton(
+                        onPressed: () {
+                          setState(() {
+                            showAllFiches = false;
+                            fiches = user_fiches;
+                          });
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: !showAllFiches ? Colors.green : Colors.grey,
+                        ),
+                        child: const Text(
+                          'Fiches Personnelles',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    ],
                   ),
+
                   const SizedBox(height: 16),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(16, 0, 0, 0),
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       children: [
-                        for (var fiche in fiches)
+                        for (var fiche in showAllFiches ? fiches : user_fiches)
                           Column(
                             children: [
                               const SizedBox(height: 10), // Espace entre les fiches

@@ -6,14 +6,17 @@ import 'package:image_picker/image_picker.dart';
 import 'package:location/location.dart';
 import 'package:intl/intl.dart';
 
+import '../dir_campagne/campagne_screen.dart';
 import '../model/campagne_model.dart';
 import '../model/database.dart';
 import '../model/fiche_model.dart';
+import '../model/user_model.dart';
 
 class FicheScreen extends StatefulWidget {
   final Campagne campagne;
+  final UserDatabase user;
 
-  const FicheScreen({Key? key, required this.campagne}) : super(key: key);
+  const FicheScreen({Key? key, required this.campagne, required this.user}) : super(key: key);
 
   @override
   FicheScreenWidgetState createState() => FicheScreenWidgetState();
@@ -98,12 +101,6 @@ class FicheScreenWidgetState extends State<FicheScreen> {
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
-                customTextFormField(
-                  controller: nomCreateurController,
-                  focusNode: textFieldFocusNode5,
-                  labelText: 'Nom',
-                  hintText: 'Entrez votre nom ou pseudo pour garder votre fiche',
-                ),
                 Padding(
                   padding: const EdgeInsetsDirectional.fromSTEB(16, 16, 16, 16),
                   child: Row(
@@ -241,7 +238,7 @@ class FicheScreenWidgetState extends State<FicheScreen> {
                         'heure': heureController.text,
                         'localisation':localisationController.text,
                         'observation':observationController.text,
-                        'nomCreateur': nomCreateurController.text,
+                        'nomCreateur': widget.user.nom,
                       };
 
                       // Créer un objet Fiche à partir des valeurs du formulaire
@@ -260,7 +257,11 @@ class FicheScreenWidgetState extends State<FicheScreen> {
 
                       log('Button create campaign pressed');
                       // ignore: use_build_context_synchronously
-                      Navigator.pushNamed(currentContext, '/campagne_screen', arguments: widget.campagne);
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => CampaignScreen(campagne: widget.campagne, user :widget.user),
+                        ),
+                      );
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFF78AB46), // Couleur du bouton

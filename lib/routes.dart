@@ -48,6 +48,6 @@ final Map<String, WidgetBuilder> routes = {
         .of(context)!
         .settings
         .arguments as Campagne;
-    return FicheScreen(campagne: args);
+    return FicheScreen(campagne: args, user: argUser);
   }
 };
