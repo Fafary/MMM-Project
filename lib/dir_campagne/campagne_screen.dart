@@ -286,7 +286,7 @@ class CampaignScreenState extends State<CampaignScreen> {
                           });
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: showAllFiches ? Colors.green : Colors.grey,
+                          backgroundColor: showAllFiches ? const Color(0xFF78AB46) : Colors.grey,
                         ),
                         child: const Text(
                           'Toutes les fiches',
@@ -302,7 +302,7 @@ class CampaignScreenState extends State<CampaignScreen> {
                           });
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: !showAllFiches ? Colors.green : Colors.grey,
+                          backgroundColor: !showAllFiches ? const Color(0xFF78AB46) : Colors.grey,
                         ),
                         child: const Text(
                           'Fiches Personnelles',

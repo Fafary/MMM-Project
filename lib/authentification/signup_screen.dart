@@ -52,11 +52,11 @@ class SignupScreenState extends State<SignupScreen> {
               ),
               TextField(
                 controller: emailController,
-                decoration: const InputDecoration(labelText: 'Email'),
+                decoration: const InputDecoration(labelText: 'E-mail'),
               ),
               TextField(
                 controller: passwordController,
-                decoration: const InputDecoration(labelText: 'Password'),
+                decoration: const InputDecoration(labelText: 'Mot de passe'),
                 obscureText: true,
               ),
               const SizedBox(height: 20),

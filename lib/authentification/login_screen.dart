@@ -125,7 +125,7 @@ class LoginScreenState extends State<LoginScreen> {
                             controller: emailController,
                             focusNode: emailFocusNode,
                             decoration: InputDecoration(
-                              labelText: 'Email',
+                              labelText: 'E-mail',
                               hintStyle: const TextStyle(
                                 fontFamily: 'Roboto',
                                 color: Colors.black,
@@ -159,7 +159,7 @@ class LoginScreenState extends State<LoginScreen> {
                               focusNode: passwordFocusNode,
                               obscureText: !passwordVisible,
                               decoration: InputDecoration(
-                                labelText: 'Password',
+                                labelText: 'Mot de passe',
                                 hintStyle: const TextStyle(
                                   fontFamily: 'Roboto',
                                   color: Colors.black,
@@ -217,7 +217,7 @@ class LoginScreenState extends State<LoginScreen> {
                               ),
                             ),
                             child: const Text(
-                              'Login',
+                              'Se connecter',
                               style: TextStyle(
                                 fontFamily: 'Roboto',
                                 color: Colors.white,
@@ -240,7 +240,7 @@ class LoginScreenState extends State<LoginScreen> {
                               ),
                             ),
                             child: const Text(
-                              'Fill Test Values',
+                              'Remplissage auto TEST',
                               style: TextStyle(
                                 fontFamily: 'Roboto',
                                 color: Colors.white,
@@ -253,7 +253,7 @@ class LoginScreenState extends State<LoginScreen> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               const Text(
-                                "Don't have an account ? ",
+                                "Vous n'avez pas de compte ? ",
                                 style: TextStyle(
                                   fontFamily: 'Roboto',
                                   color: Colors.black,
@@ -270,7 +270,7 @@ class LoginScreenState extends State<LoginScreen> {
                                   );
                                 },
                                 child: const Text(
-                                  ' Register Here',
+                                  ' Inscrivez-vous ici',
                                   style: TextStyle(
                                     fontFamily: 'Roboto',
                                     color: Colors.green,
