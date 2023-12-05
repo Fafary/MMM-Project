@@ -48,7 +48,8 @@ dependencies:
   location: ^5.0.0
   datetime_picker_formfield: ^2.0.1
   in_app_purchase: ^3.1.11
-
+  firebase_storage: ^11.5.3
+  intl: ^0.18.1
 
 dev_dependencies:
   flutter_test:

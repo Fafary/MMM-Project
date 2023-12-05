@@ -259,7 +259,7 @@ class ListCampaignScreenState extends State<ListCampaignScreen> {
     menuItems.add(
       const PopupMenuItem(
         value: 'option 2',
-        child: Text('Devenir un Ours'),
+        child: Text('Se déconnecter'),
       ),
     );
 
@@ -281,6 +281,7 @@ class ListCampaignScreenState extends State<ListCampaignScreen> {
         showUpgradeDialog();
         break;
       case 'option 2':
+        Navigator.of(context).pushNamed('/login');
         break;
     }
   }

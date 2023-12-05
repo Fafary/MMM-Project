@@ -1,5 +1,7 @@
 import 'dart:developer';
+import 'dart:io';
 
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:image_picker/image_picker.dart';
@@ -76,7 +78,7 @@ class FicheScreenWidgetState extends State<FicheScreen> {
           : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: Color(0xFFE5F3E2),
+        backgroundColor: const Color(0xFFE5F3E2),
         appBar: AppBar(
           backgroundColor: const Color(0xFF78AB46), // Couleur de la barre d'en-tête
           actions: [
@@ -202,6 +204,8 @@ class FicheScreenWidgetState extends State<FicheScreen> {
                       final pickedFile = await picker.pickImage(source: ImageSource.gallery);
 
                       if (pickedFile != null) {
+                        await uploadImageToFirebase(pickedFile.path);
+
                         // pickedFile.path sert à accéder au chemin de l'image sélectionnée
                         log('Image sélectionnée : ${pickedFile.path}');
                       } else {
@@ -257,9 +261,9 @@ class FicheScreenWidgetState extends State<FicheScreen> {
 
                       log('Button create campaign pressed');
                       // ignore: use_build_context_synchronously
-                      Navigator.of(context).push(
+                      Navigator.of(currentContext).push(
                         MaterialPageRoute(
-                          builder: (context) => CampaignScreen(campagne: widget.campagne, user :widget.user),
+                          builder: (currentContext) => CampaignScreen(campagne: widget.campagne, user :widget.user),
                         ),
                       );
                     },
@@ -287,6 +291,19 @@ class FicheScreenWidgetState extends State<FicheScreen> {
       ),
     );
   }
+
+  Future<void> uploadImageToFirebase(String filePath) async {
+    final storage = FirebaseStorage.instance.ref().child("images");
+    final file = File(filePath);
+    final uploadTask = storage.putFile(file);
+
+    await uploadTask.whenComplete(() => log('Image envoyée à Firebase Storage'));
+
+    // Vous pouvez récupérer l'URL de l'image après le téléchargement
+    final imageUrl = await storage.getDownloadURL();
+    log('URL de l\'image dans Firebase Storage : $imageUrl');
+  }
+
 }
 
 Widget customTextFormField({
@@ -432,4 +449,5 @@ class DateTimePickerFormField extends StatelessWidget {
       ),
     );
   }
+
 }

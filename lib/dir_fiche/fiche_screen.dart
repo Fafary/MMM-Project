@@ -1,12 +1,11 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:mmm_project/model/fiche_model.dart';
 
 class FicheWidget extends StatefulWidget {
-  const FicheWidget({Key? key, required Fiche fiche}) : super(key: key);
+  final Fiche fiche;
+  const FicheWidget({Key? key, required this.fiche}) : super(key: key);
 
   @override
   FicheWidgetState createState() => FicheWidgetState();
@@ -58,8 +57,18 @@ class FicheWidgetState extends State<FicheWidget> {
         key: scaffoldKey,
         backgroundColor: const Color(0xFFE5F3E2),
         appBar: AppBar(
-          backgroundColor: const Color(0xFF78AB46), // Couleur de la barre d'en-tête
+          backgroundColor: const Color(0xFF78AB46),
           automaticallyImplyLeading: false,
+          leading: IconButton(
+            icon: const Icon(
+              Icons.arrow_back_rounded,
+              size: 30,
+            ),
+            color: Colors.black,
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
           actions: const [],
           centerTitle: false,
           elevation: 0,
@@ -67,7 +76,7 @@ class FicheWidgetState extends State<FicheWidget> {
         body: SafeArea(
           top: true,
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+            padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 16),
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
@@ -83,11 +92,8 @@ class FicheWidgetState extends State<FicheWidget> {
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const Text(
-                            'Fiche',
-                          ),
                           Text(
-                            'Date: 7/11/2023',
+                            widget.fiche.date!,
                             style: Theme.of(context).textTheme.bodyLarge,
                           ),
                         ],
@@ -95,67 +101,39 @@ class FicheWidgetState extends State<FicheWidget> {
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(right: 16),
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      color: Color(0xFFE5F3E2),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-                      child: TextFormField(
-                        controller: textController,
-                        focusNode: textFieldFocusNode,
-                        obscureText: false,
-                        decoration: InputDecoration(
-                          labelText: 'Observation',
-                          hintText: 'Ajouter une observation',
-                          hintStyle: Theme.of(context).textTheme.bodyMedium,
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                              color: Color(0xFF78AB46),
-                              width: 2,
-                            ),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                              color: Color(0x00000000),
-                              width: 2,
-                            ),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          errorBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                              color: Color(0x00000000),
-                              width: 2,
-                            ),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          focusedErrorBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                              color: Color(0x00000000),
-                              width: 2,
-                            ),
-                            borderRadius: BorderRadius.circular(10),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 16),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: const Color(0xFF78AB46),
+                          width: 2,
+                        ),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: SingleChildScrollView(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          child: Text(
+                            widget.fiche.observation ?? "",
+                            style: Theme.of(context).textTheme.bodyMedium,
                           ),
                         ),
-                        style: Theme.of(context).textTheme.bodyMedium,
-                        minLines: 5,
-                        maxLines: null,
                       ),
                     ),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(right: 16),
+                  padding: const EdgeInsets.only(right: 16, left: 0),
                   child: Container(
                     decoration: const BoxDecoration(
-                      color: Color(0xFFE5F3E2),                    ),
+                      color: Color(0xFFE5F3E2),
+                    ),
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                      padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 16),
                       child: Text(
-                        'Name: Tree\n\nLocation:\nLatitude 12.12345°W\nLongitude 12.12347°N\n',
+                        'Location: ${widget.fiche.lieu}\nLatitude ${widget.fiche.latitude}\nLongitude ${widget.fiche.longitude}\n',
                         style: Theme.of(context).textTheme.bodyMedium,
                       ),
                     ),
@@ -219,23 +197,6 @@ class FicheWidgetState extends State<FicheWidget> {
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-                  child: ElevatedButton(
-                    onPressed: () {
-                      log('Button pressed ...');
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFFE5F3E2),
-                      padding: EdgeInsets.zero,
-                      elevation: 2,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                    child: const Text('Submit'),
-                  ),
-                ),
               ],
             ),
           ),
@@ -243,4 +204,5 @@ class FicheWidgetState extends State<FicheWidget> {
       ),
     );
   }
+
 }

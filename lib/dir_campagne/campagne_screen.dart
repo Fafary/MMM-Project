@@ -18,7 +18,7 @@ class CampaignScreen extends StatefulWidget {
 
 class CampaignScreenState extends State<CampaignScreen> {
   List<Fiche> fiches = [];
-  List<Fiche> user_fiches = [];
+  List<Fiche> userFiches = [];
 
   bool showAllFiches = true; //savoir si l'on veut afficher toutes les fiches
 
@@ -26,10 +26,10 @@ class CampaignScreenState extends State<CampaignScreen> {
 
   Future<void> fetchFiches(String titre) async {
     final ficheList = await databaseServices.getFicheList(titre);
-    final userFiches = ficheList.where((fiche) => fiche.nomCreateur == widget.user.nom).toList();
+    final fetchUserFiches = ficheList.where((fiche) => fiche.nomCreateur == widget.user.nom).toList();
     setState(() {
       fiches = ficheList;
-      user_fiches = userFiches;
+      userFiches = fetchUserFiches;
     });
   }
 
@@ -291,7 +291,7 @@ class CampaignScreenState extends State<CampaignScreen> {
                         onPressed: () {
                           setState(() {
                             showAllFiches = false;
-                            fiches = user_fiches;
+                            fiches = userFiches;
                           });
                         },
                         style: ElevatedButton.styleFrom(
@@ -311,7 +311,7 @@ class CampaignScreenState extends State<CampaignScreen> {
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       children: [
-                        for (var fiche in showAllFiches ? fiches : user_fiches)
+                        for (var fiche in showAllFiches ? fiches : userFiches)
                           Column(
                             children: [
                               const SizedBox(height: 10), // Espace entre les fiches
