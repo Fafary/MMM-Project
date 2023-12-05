@@ -2,22 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:mmm_project/model/fiche_model.dart';
+import 'package:mmm_project/model/user_model.dart';
 
-class FicheWidget extends StatefulWidget {
+import '../model/fonctions_appbar.dart';
+
+class FicheScreen extends StatefulWidget {
+  final UserDatabase user;
   final Fiche fiche;
-  const FicheWidget({Key? key, required this.fiche}) : super(key: key);
+  const FicheScreen({Key? key, required this.fiche, required this.user}) : super(key: key);
 
   @override
-  FicheWidgetState createState() => FicheWidgetState();
+  FicheScreenState createState() => FicheScreenState();
 }
 
-class FicheWidgetState extends State<FicheWidget> {
+class FicheScreenState extends State<FicheScreen> {
   late TextEditingController textController;
   late FocusNode textFieldFocusNode;
   CarouselController? carouselController;
   int carouselCurrentIndex = 0;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  final FonctionAppBar fctAppBar = FonctionAppBar();
 
   @override
   void initState() {
@@ -59,26 +64,46 @@ class FicheWidgetState extends State<FicheWidget> {
         appBar: AppBar(
           backgroundColor: const Color(0xFF78AB46),
           automaticallyImplyLeading: false,
-          leading: IconButton(
-            icon: const Icon(
-              Icons.arrow_back_rounded,
-              size: 30,
-            ),
-            color: Colors.black,
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-          ),
-          title: const Text(
-            'Fiche',
-            style: TextStyle(
-              color: Colors.black,
-              fontSize: 20,
-            ),
-          ),
-          actions: const [],
-          centerTitle: false,
           elevation: 0,
+          bottom: PreferredSize(
+            preferredSize: const Size.fromHeight(4),
+            child: Container(
+              alignment: Alignment.bottomCenter,
+              padding: const EdgeInsets.only(bottom: 1),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  IconButton(
+                    icon: const Icon(
+                      Icons.arrow_back_rounded,
+                      size: 30,
+                    ),
+                    color: Colors.black,
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                  const Text(
+                    'Biodivercity',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  IconButton(
+                    icon: const Icon(
+                      Icons.settings,
+                      color: Colors.white,
+                    ),
+                    onPressed: () {
+                      fctAppBar.showSettingsMenu(context, widget.user);
+                    },
+                  ),
+                ],
+              ),
+            ),
+          ),
         ),
         body: SafeArea(
           top: true,

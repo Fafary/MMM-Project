@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 
+import '../model/fonctions_appbar.dart';
 import '../model/user_model.dart';
 import '../model/campagne_model.dart';
 import '../model/database.dart';
@@ -32,6 +33,7 @@ class CampagneCreationState extends State<CampagneCreation> {
   final unfocusNode = FocusNode();
 
   final DatabaseServices databaseServices = DatabaseServices();
+  final FonctionAppBar fctAppBar = FonctionAppBar();
 
   DateTime dateDebutController = DateTime.now();
   DateTime dateFinController = DateTime.now().add(const Duration(days: 1));
@@ -60,23 +62,48 @@ class CampagneCreationState extends State<CampagneCreation> {
       child: Scaffold(
         key: scaffoldKey,
         appBar: AppBar(
-          backgroundColor: const Color(0xFF78AB46), // Couleur de la barre d'en haut
-          title: const Text('Créer une campagne'),
-          actions: [
-            Padding(
-              padding: const EdgeInsets.only(right: 16.0),
-              child: IconButton(
-                icon: const Icon(
-                  Icons.close_rounded,
-                  color: Colors.black,
-                  size: 30,
-                ),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
+          backgroundColor: const Color(0xFF78AB46),
+          automaticallyImplyLeading: false,
+          elevation: 0,
+          bottom: PreferredSize(
+            preferredSize: const Size.fromHeight(4),
+            child: Container(
+              alignment: Alignment.bottomCenter,
+              padding: const EdgeInsets.only(bottom: 1),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  IconButton(
+                    icon: const Icon(
+                      Icons.arrow_back_rounded,
+                      size: 30,
+                    ),
+                    color: Colors.black,
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                  const Text(
+                    'Biodivercity',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  IconButton(
+                    icon: const Icon(
+                      Icons.settings,
+                      color: Colors.white,
+                    ),
+                    onPressed: () {
+                      fctAppBar.showSettingsMenu(context, widget.user);
+                    },
+                  ),
+                ],
               ),
             ),
-          ],
+          ),
         ),
         backgroundColor: const Color(0xFFE5F3E2),
         body: SafeArea(
@@ -337,6 +364,7 @@ class CampagneCreationState extends State<CampagneCreation> {
       ),
     );
   }
+
 }
 
 class BasicDateField extends StatelessWidget {
@@ -369,5 +397,5 @@ class BasicDateField extends StatelessWidget {
       ],
     );
   }
-}
 
+}

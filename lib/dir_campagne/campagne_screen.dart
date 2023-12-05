@@ -1,9 +1,8 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
-import '../dir_fiche/creation_fiche.dart';
 import '../model/campagne_model.dart';
 import '../model/database.dart';
 import '../model/fiche_model.dart';
+import '../model/fonctions_appbar.dart';
 import '../model/user_model.dart';
 
 class CampaignScreen extends StatefulWidget {
@@ -23,6 +22,7 @@ class CampaignScreenState extends State<CampaignScreen> {
   bool showAllFiches = true; //savoir si l'on veut afficher toutes les fiches
 
   final DatabaseServices databaseServices = DatabaseServices();
+  final FonctionAppBar fctAppBar = FonctionAppBar();
 
   Future<void> fetchFiches(String titre) async {
     final ficheList = await databaseServices.getFicheList(titre);
@@ -57,27 +57,46 @@ class CampaignScreenState extends State<CampaignScreen> {
         appBar: AppBar(
           backgroundColor: const Color(0xFF78AB46),
           automaticallyImplyLeading: false,
-          leading: IconButton(
-            icon: const Icon(
-              Icons.arrow_back_rounded,
-              size: 30,
-            ),
-            color: Colors.black,
-            onPressed: () {
-              log('IconButton pressed retour');
-              Navigator.of(context).pop();
-            },
-          ),
-          title: const Text(
-            'Campagne',
-            style: TextStyle(
-              color: Colors.black,
-              fontSize: 20,
-            ),
-          ),
-          actions: const [],
-          centerTitle: false,
           elevation: 0,
+          bottom: PreferredSize(
+            preferredSize: const Size.fromHeight(4),
+            child: Container(
+              alignment: Alignment.bottomCenter,
+              padding: const EdgeInsets.only(bottom: 1),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  IconButton(
+                    icon: const Icon(
+                      Icons.arrow_back_rounded,
+                      size: 30,
+                    ),
+                    color: Colors.black,
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                  const Text(
+                    'Biodivercity',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  IconButton(
+                    icon: const Icon(
+                      Icons.settings,
+                      color: Colors.white,
+                    ),
+                    onPressed: () {
+                      fctAppBar.showSettingsMenu(context, widget.user);
+                    },
+                  ),
+                ],
+              ),
+            ),
+          ),
         ),
         body: SafeArea(
           top: true,
@@ -234,11 +253,7 @@ class CampaignScreenState extends State<CampaignScreen> {
                     alignment: Alignment.center,
                     child: ElevatedButton(
                       onPressed: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => FicheScreen(campagne: widget.campagne, user :widget.user),
-                          ),
-                        );
+                        Navigator.of(context).pushNamed('/create_fiche', arguments: {'campagne': widget.campagne, 'user': widget.user});
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFF78AB46),
@@ -322,7 +337,7 @@ class CampaignScreenState extends State<CampaignScreen> {
                           Column(
                             children: [
                               const SizedBox(height: 10), // Espace entre les fiches
-                              buildCustomListItem(fiche, context),
+                              buildCustomListItem(context, widget.user, fiche),
                             ],
                           ),
                       ],
@@ -338,10 +353,10 @@ class CampaignScreenState extends State<CampaignScreen> {
   }
 }
 
-Widget buildCustomListItem(Fiche fiche, context) {
+Widget buildCustomListItem(context, UserDatabase user, Fiche fiche) {
   return InkWell(
     onTap: () {
-      Navigator.of(context).pushNamed('/fiche_screen', arguments: fiche);
+      Navigator.of(context).pushNamed('/fiche_screen', arguments: {'fiche': fiche, 'user': user});
     },
     child: Material(
       color: Colors.transparent,
@@ -381,4 +396,5 @@ Widget buildCustomListItem(Fiche fiche, context) {
       ),
     ),
   );
+  
 }

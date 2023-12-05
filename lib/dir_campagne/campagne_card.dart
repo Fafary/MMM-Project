@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../model/campagne_model.dart';
 import '../model/user_model.dart';
-import 'campagne_screen.dart';
 
 class CampaignCard extends StatefulWidget {
   final String title;
@@ -42,14 +41,7 @@ class CampaignCardState extends State<CampaignCard> {
         },
         child: InkWell(
           onTap: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => CampaignScreen(
-                  campagne: widget.campagne,
-                  user: widget.user,
-                ),
-              ),
-            );
+            Navigator.of(context).pushNamed('/campagne_screen', arguments: {'campagne': widget.campagne, 'user': widget.user});
           },
           child: Container(
             width: double.infinity,
@@ -124,7 +116,7 @@ class CampaignCardState extends State<CampaignCard> {
                         ),
                         ElevatedButton(
                           onPressed: () {
-                            navigateToMapScreen(widget.campagne);
+                            navigateToMapScreen(widget.campagne, widget.user);
                           },
                           child: const Text('Voir la carte'),
                         ),
@@ -140,7 +132,7 @@ class CampaignCardState extends State<CampaignCard> {
     );
   }
 
-  void navigateToMapScreen(Campagne campagne) {
-    Navigator.of(context).pushNamed('/map', arguments: campagne);
+  void navigateToMapScreen(Campagne campagne, UserDatabase user) {
+    Navigator.of(context).pushNamed('/map', arguments: {'campagne': campagne, 'user': user});
   }
 }
