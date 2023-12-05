@@ -69,63 +69,65 @@ class FicheWidgetState extends State<FicheWidget> {
               Navigator.of(context).pop();
             },
           ),
+          title: const Text(
+            'Fiche',
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 20,
+            ),
+          ),
           actions: const [],
           centerTitle: false,
           elevation: 0,
         ),
         body: SafeArea(
           top: true,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 16),
+          child: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
                 Padding(
                   padding: const EdgeInsets.only(right: 16),
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      color: Color(0xFFE5F3E2),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            widget.fiche.date!,
-                            style: Theme.of(context).textTheme.bodyLarge,
-                          ),
-                        ],
-                      ),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Date: ${widget.fiche.date ?? '01/01/2023'}',
+                          style: Theme.of(context).textTheme.bodyLarge,
+                        ),
+                      ],
                     ),
                   ),
                 ),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.only(right: 16),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: const Color(0xFF78AB46),
-                          width: 2,
-                        ),
-                        borderRadius: BorderRadius.circular(10),
+                const SizedBox(height: 8),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Container(
+                    width: double.infinity,
+                    height: 96,
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: const Color(0xFF78AB46),
+                        width: 2,
                       ),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8),
                       child: SingleChildScrollView(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16),
-                          child: Text(
-                            widget.fiche.observation ?? "",
-                            style: Theme.of(context).textTheme.bodyMedium,
-                          ),
+                        child: Text(
+                          widget.fiche.observation ?? "Pas d'observation",
+                          style: Theme.of(context).textTheme.bodyMedium,
                         ),
                       ),
                     ),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(right: 16, left: 0),
+                  padding: const EdgeInsets.only(right: 20, left: 0),
                   child: Container(
                     decoration: const BoxDecoration(
                       color: Color(0xFFE5F3E2),
@@ -133,7 +135,7 @@ class FicheWidgetState extends State<FicheWidget> {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 16),
                       child: Text(
-                        'Location: ${widget.fiche.lieu}\nLatitude ${widget.fiche.latitude}\nLongitude ${widget.fiche.longitude}\n',
+                        'Location: ${widget.fiche.lieu}\nLatitude : ${widget.fiche.latitude}\nLongitude : ${widget.fiche.longitude}\n',
                         style: Theme.of(context).textTheme.bodyMedium,
                       ),
                     ),

@@ -68,6 +68,13 @@ class CampaignScreenState extends State<CampaignScreen> {
               Navigator.of(context).pop();
             },
           ),
+          title: const Text(
+            'Campagne',
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 20,
+            ),
+          ),
           actions: const [],
           centerTitle: false,
           elevation: 0,
