@@ -118,7 +118,7 @@ class CampagneCreationState extends State<CampagneCreation> {
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     FormBuilderTextField(
-                      name: 'title',
+                      name: 'title ',
                       validator: FormBuilderValidators.required(errorText: 'Ce champ est obligatoire'),
                       controller: titleController,
                       focusNode: textFieldFocusNode1,
