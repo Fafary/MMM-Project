@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../model/campagne_model.dart';
 import '../model/database.dart';
 import '../model/user_model.dart';
+import '../model/fonctions_appbar.dart';
 import 'campagne_card.dart';
 
 class ListCampaignScreen extends StatefulWidget {
@@ -20,6 +21,7 @@ class ListCampaignScreenState extends State<ListCampaignScreen> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final TextEditingController textController = TextEditingController();
   final FocusNode textFieldFocusNode = FocusNode();
+  final FonctionAppBar fctAppBar = FonctionAppBar();
 
   @override
   void dispose() {
@@ -102,7 +104,7 @@ class ListCampaignScreenState extends State<ListCampaignScreen> {
                       color: Colors.white,
                     ),
                     onPressed: () {
-                      showSettingsMenu(context);
+                      fctAppBar.showSettingsMenu(context, widget.user);
                     },
                   ),
                 ],
@@ -241,68 +243,6 @@ class ListCampaignScreenState extends State<ListCampaignScreen> {
           ),
         ),
       ),
-    );
-  }
-
-  void showSettingsMenu(BuildContext context) async {
-    List<PopupMenuEntry<String>> menuItems = [];
-
-    if (!widget.user.isOrganisateur) {
-      menuItems.add(
-        const PopupMenuItem(
-          value: 'option 1',
-          child: Text('Passer administrateur'),
-        ),
-      );
-    }
-
-    menuItems.add(
-      const PopupMenuItem(
-        value: 'option 2',
-        child: Text('Se déconnecter'),
-      ),
-    );
-
-    await showMenu(
-      context: context,
-      position: const RelativeRect.fromLTRB(110.0, 60.0, 0.0, 0.0),
-      items: menuItems,
-      elevation: 8.0,
-    ).then((value) {
-      if (value != null) {
-        handleMenuItemSelection(value);
-      }
-    });
-  }
-
-  void handleMenuItemSelection(String value) {
-    switch (value) {
-      case 'option 1':
-        showUpgradeDialog();
-        break;
-      case 'option 2':
-        Navigator.of(context).pushNamed('/login');
-        break;
-    }
-  }
-
-  void showUpgradeDialog() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text("Passer Organisateur"),
-          content: ElevatedButton(
-            onPressed: () {
-              String mail = widget.user.mail;
-              databaseServices.upgradeUserToOrganisateur(mail);
-
-              Navigator.of(context).pop();
-            },
-            child: const Text("Acheter pour 9.99 €"),
-          ),
-        );
-      },
     );
   }
 

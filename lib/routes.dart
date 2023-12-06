@@ -9,7 +9,7 @@ import 'authentification/login_screen.dart';
 import 'model/campagne_model.dart';
 import 'model/fiche_model.dart';
 import 'model/user_model.dart';
-import 'model/map.dart';
+import 'map.dart';
 
 const argUser = null;
 
@@ -23,12 +23,15 @@ final Map<String, WidgetBuilder> routes = {
     return ListCampaignScreen(user: argUser);
   },
   '/campagne_screen': (BuildContext context) {
-    final args = ModalRoute
+    final Map<String, dynamic> args = ModalRoute
         .of(context)!
         .settings
-        .arguments as Campagne;
+        .arguments as Map<String, dynamic>;
 
-    return CampaignScreen(campagne: args, user: argUser);
+    final Campagne campagne = args['campagne'];
+    final UserDatabase user = args['user'];
+
+    return CampaignScreen(campagne: campagne, user: user);
   },
   '/create_campaign': (BuildContext context) {
     final args = ModalRoute
@@ -38,21 +41,36 @@ final Map<String, WidgetBuilder> routes = {
     return CampagneCreation(user: args);
   },
   '/fiche_screen': (BuildContext context) {
-    final args = ModalRoute
+    final Map<String, dynamic> args = ModalRoute
         .of(context)!
         .settings
-        .arguments as Fiche;
-    return FicheWidget(fiche: args);
+        .arguments as Map<String, dynamic>;
+
+    final Fiche fiche = args['fiche'];
+    final UserDatabase user = args['user'];
+
+    return FicheScreen(fiche: fiche, user: user);
   },
   '/create_fiche': (BuildContext context) {
-    final args = ModalRoute
+    final Map<String, dynamic> args = ModalRoute
         .of(context)!
         .settings
-        .arguments as Campagne;
-    return FicheScreen(campagne: args, user: argUser);
+        .arguments as Map<String, dynamic>;
+
+    final Campagne campagne = args['campagne'];
+    final UserDatabase user = args['user'];
+
+    return CreationFiche(campagne: campagne, user: user);
   },
   '/map': (BuildContext context) {
-    final args = ModalRoute.of(context)!.settings.arguments as Campagne;
-    return MapScreen(campagne: args);
+    final Map<String, dynamic> args = ModalRoute
+        .of(context)!
+        .settings
+        .arguments as Map<String, dynamic>;
+
+    final Campagne campagne = args['campagne'];
+    final UserDatabase user = args['user'];
+
+    return MapScreen(campagne: campagne, user: user);
   },
 };

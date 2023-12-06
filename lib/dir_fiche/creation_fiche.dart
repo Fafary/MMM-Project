@@ -12,19 +12,20 @@ import '../dir_campagne/campagne_screen.dart';
 import '../model/campagne_model.dart';
 import '../model/database.dart';
 import '../model/fiche_model.dart';
+import '../model/fonctions_appbar.dart';
 import '../model/user_model.dart';
 
-class FicheScreen extends StatefulWidget {
+class CreationFiche extends StatefulWidget {
   final Campagne campagne;
   final UserDatabase user;
 
-  const FicheScreen({Key? key, required this.campagne, required this.user}) : super(key: key);
+  const CreationFiche({Key? key, required this.campagne, required this.user}) : super(key: key);
 
   @override
-  FicheScreenWidgetState createState() => FicheScreenWidgetState();
+  CreationFicheState createState() => CreationFicheState();
 }
 
-class FicheScreenWidgetState extends State<FicheScreen> {
+class CreationFicheState extends State<CreationFiche> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   TextEditingController afficheGPS = TextEditingController();
@@ -49,6 +50,7 @@ class FicheScreenWidgetState extends State<FicheScreen> {
   final unfocusNode = FocusNode();
 
   final DatabaseServices databaseServices = DatabaseServices();
+  final FonctionAppBar fctAppBar = FonctionAppBar();
 
   @override
   void dispose() {
@@ -80,22 +82,48 @@ class FicheScreenWidgetState extends State<FicheScreen> {
         key: scaffoldKey,
         backgroundColor: const Color(0xFFE5F3E2),
         appBar: AppBar(
-          backgroundColor: const Color(0xFF78AB46), // Couleur de la barre d'en-tête
-          actions: [
-            Padding(
-              padding: const EdgeInsets.only(right: 16.0),
-              child: IconButton(
-                icon: const Icon(
-                  Icons.close_rounded,
-                  color: Colors.black,
-                  size: 30,
-                ),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
+          backgroundColor: const Color(0xFF78AB46),
+          automaticallyImplyLeading: false,
+          elevation: 0,
+          bottom: PreferredSize(
+            preferredSize: const Size.fromHeight(4),
+            child: Container(
+              alignment: Alignment.bottomCenter,
+              padding: const EdgeInsets.only(bottom: 1),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  IconButton(
+                    icon: const Icon(
+                      Icons.arrow_back_rounded,
+                      size: 30,
+                    ),
+                    color: Colors.black,
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                  const Text(
+                    'Biodivercity',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  IconButton(
+                    icon: const Icon(
+                      Icons.settings,
+                      color: Colors.white,
+                    ),
+                    onPressed: () {
+                      fctAppBar.showSettingsMenu(context, widget.user);
+                    },
+                  ),
+                ],
               ),
             ),
-          ],
+          ),
         ),
         body: SafeArea(
           top: true,
