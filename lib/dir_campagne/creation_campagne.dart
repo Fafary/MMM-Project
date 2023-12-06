@@ -332,7 +332,7 @@ class CampagneCreationState extends State<CampagneCreation> {
                       log('Button create campaign pressed');
 
                       // ignore: use_build_context_synchronously
-                      Navigator.of(currentContext).pushNamed('/create_fiche', arguments: widget.user);
+                      Navigator.of(currentContext).pushNamed('/list_campaign', arguments: widget.user);
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.green,

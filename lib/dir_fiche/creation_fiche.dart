@@ -100,7 +100,7 @@ class CreationFicheState extends State<CreationFiche> {
                     ),
                     color: Colors.black,
                     onPressed: () {
-                      Navigator.of(context).pop();
+                      Navigator.of(context).pushNamed('/campagne_screen', arguments: {'campagne': widget.campagne, 'user': widget.user});
                     },
                   ),
                   const Text(

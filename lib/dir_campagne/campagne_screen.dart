@@ -73,7 +73,7 @@ class CampaignScreenState extends State<CampaignScreen> {
                     ),
                     color: Colors.black,
                     onPressed: () {
-                      Navigator.of(context).pop();
+                      Navigator.of(context).pushNamed('/list_campaign', arguments: widget.user);
                     },
                   ),
                   const Text(
