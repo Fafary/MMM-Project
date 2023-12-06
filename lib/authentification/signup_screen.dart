@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:form_builder_validators/form_builder_validators.dart';
 
 import '../model/database.dart';
 import '../model/user_model.dart';
@@ -42,22 +44,62 @@ class SignupScreenState extends State<SignupScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              TextField(
+              CustomTextFieldWidget(
+                labelText: 'Nom',
+                hintText: 'Entrez un nom',
+                errorText: 'Ce champ est obligatoire',
                 controller: nomController,
-                decoration: const InputDecoration(labelText: 'Nom'),
               ),
-              TextField(
+              CustomTextFieldWidget(
+                labelText: 'Prénom',
+                hintText: 'Entrez un prénom',
+                errorText: 'Ce champ est obligatoire',
                 controller: prenomController,
-                decoration: const InputDecoration(labelText: 'Prénom'),
               ),
-              TextField(
+              CustomTextFieldWidget(
+                labelText: 'E-mail',
+                hintText: 'Entrez un e-mail',
+                errorText: 'Ce champ est obligatoire',
                 controller: emailController,
-                decoration: const InputDecoration(labelText: 'E-mail'),
               ),
-              TextField(
-                controller: passwordController,
-                decoration: const InputDecoration(labelText: 'Mot de passe'),
-                obscureText: true,
+              Padding(
+                padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+                child: FormBuilderTextField(
+                  name: 'Mot de passe',
+                  validator: FormBuilderValidators.required(errorText: 'Ce champ est obligatoire'),
+                  controller: passwordController,
+                  obscureText: true,
+                  decoration: InputDecoration(
+                    labelText: 'Mot de passe',
+                    hintText: 'Entrez un mot de passe',
+                    hintStyle: const TextStyle(
+                      fontFamily: 'Roboto',
+                      color: Colors.grey,
+                      fontSize: 14,
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(
+                        color: Colors.black,
+                        width: 2,
+                      ),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(
+                        color: Colors.lightGreen,
+                        width: 2,
+                      ),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    contentPadding: const EdgeInsets.fromLTRB(20, 32, 20, 12),
+                  ),
+                  style: const TextStyle(
+                    fontFamily: 'Roboto',
+                    color: Colors.black,
+                    fontSize: 16,
+                    fontWeight: FontWeight.normal,
+                  ),
+                ),
               ),
               const SizedBox(height: 20),
               ElevatedButton(
@@ -108,6 +150,64 @@ class SignupScreenState extends State<SignupScreen> {
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class CustomTextFieldWidget extends StatelessWidget {
+  final String labelText;
+  final String hintText;
+  final String errorText;
+  final TextEditingController controller;
+
+  const CustomTextFieldWidget({
+    Key? key,
+    required this.labelText,
+    required this.hintText,
+    required this.errorText,
+    required this.controller,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+      child: FormBuilderTextField(
+        name: labelText,
+        validator: FormBuilderValidators.required(errorText: errorText),
+        controller: controller,
+        obscureText: false,
+        decoration: InputDecoration(
+          labelText: labelText,
+          hintText: hintText,
+          hintStyle: const TextStyle(
+            fontFamily: 'Roboto',
+            color: Colors.grey,
+            fontSize: 14,
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderSide: const BorderSide(
+              color: Colors.black,
+              width: 2,
+            ),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: const BorderSide(
+              color: Colors.lightGreen,
+              width: 2,
+            ),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          contentPadding: const EdgeInsets.fromLTRB(20, 32, 20, 12),
+        ),
+        style: const TextStyle(
+          fontFamily: 'Roboto',
+          color: Colors.black,
+          fontSize: 16,
+          fontWeight: FontWeight.normal,
         ),
       ),
     );

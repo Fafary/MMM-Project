@@ -98,7 +98,7 @@ class CampagneCreationState extends State<CampagneCreation> {
                       obscureText: false,
                       decoration: InputDecoration(
                         labelText: 'Titre',
-                        hintText: 'Enter campaign title',
+                        hintText: 'Entez un titre de campagne',
                         hintStyle: const TextStyle(
                           fontFamily: 'Roboto',
                           color: Colors.grey,
@@ -136,7 +136,7 @@ class CampagneCreationState extends State<CampagneCreation> {
                         focusNode: textFieldFocusNode2,
                         obscureText: false,
                         decoration: InputDecoration(
-                          hintText: 'Entrer une description...',
+                          hintText: 'Entrez une description...',
                           hintStyle: const TextStyle(
                             fontFamily: 'Roboto',
                             color: Colors.grey,
@@ -203,7 +203,7 @@ class CampagneCreationState extends State<CampagneCreation> {
                         obscureText: false,
                         decoration: InputDecoration(
                           labelText: 'Territoire',
-                          hintText: 'Entrer un territoire (commune ou liste de communes)',
+                          hintText: 'Entrez un territoire (commune ou liste de communes)',
                           hintStyle: const TextStyle(
                             fontFamily: 'Roboto',
                             color: Colors.grey,
@@ -242,7 +242,7 @@ class CampagneCreationState extends State<CampagneCreation> {
                         validator: FormBuilderValidators.required(errorText: 'Ce champ est obligatoire'),
                         decoration: InputDecoration(
                           labelText: ' Groupes Taxonomic',
-                          hintText: 'Entrer des groupes taxonomic à identifier',
+                          hintText: 'Entrez des groupes taxonomic à identifier',
                           hintStyle: const TextStyle(
                             fontFamily: 'Roboto',
                             color: Colors.grey,
@@ -370,4 +370,3 @@ class BasicDateField extends StatelessWidget {
     );
   }
 }
-
