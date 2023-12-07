@@ -19,7 +19,7 @@ Ce projet consiste à créer une application mobile et son back-end pour simplif
 
 ## Architecture
 
-Le projet est ordonné de façon à avoir un dossier par page comme la connexion, la campagne, les fiches et le modèle qui correspond à la partie back.
+Le projet est ordonné de façon à avoir un dossier par sujets comme la connexion, la campagne, les fiches et le modèle qui correspond à la partie back.
 
 ## Fonctionnalités
 
@@ -39,7 +39,7 @@ Le projet est ordonné de façon à avoir un dossier par page comme la connexion
 
 1. Mise en place d'une cartographie : la solution logique était d'utiliser Google Map, cependant il fallait rentrer ses coordonnées bancaires.
 2. Notifications : Il faut "updgrade" Firebase pour profiter pleinement des notifications, car nous avions seulement la possibilité de recevoir des notifications et non d'en envoyer depuis l'application.
-3. Les photos : Pas de problème particulier, cependant prendre le temps de comprendre son fonctionnement pour pouvoir l'utiliser correctement.
+3. Les photos : Pas de problème particulier, cependant prendre le temps de comprendre son fonctionnement pour pouvoir l'implémenter correctement.
 
 ## Technologies utilisées
 
